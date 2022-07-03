@@ -1,4 +1,7 @@
 public class ListNode {
+    /**
+     * 链表初始化类
+     */
     int val;
     ListNode next;
     ListNode() {}

@@ -1,4 +1,13 @@
 public class 股票买卖 {
+    public static int maxProfit_greedy(int[] prices){
+        int minPrice = prices[0], profit =0;
+        for(int i=1; i<prices.length; i++){
+            minPrice = Math.min(minPrice, prices[i]);
+            profit = Math.max(prices[i]-minPrice, profit);
+        }
+        return profit;
+    }
+
     public int maxProfit_k_int(int[] prices){
         int n = prices.length;
         int [][] dp = new int[n][2];

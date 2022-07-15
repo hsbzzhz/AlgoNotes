@@ -44,16 +44,22 @@ public class TreeNode {
 
 
     public static void levelOrder(TreeNode tree){
-        // bfs
+        /*
+         * 使用bfs层序遍历一棵二叉树
+         * 从上到下层序遍历，每层内从左至右
+         */
         if (tree == null){
             return;
         }
         // 用链表来充当一个队列
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.add(tree); // 存入 list中
+        
+        // 从上到下遍历二叉树的每一层
         while (!queue.isEmpty()){
             TreeNode node = queue.poll(); // 取出队头元素
             System.out.println(tree.val);
+            // 
             if (node.left!=null){
                 queue.add(node.left);
             }

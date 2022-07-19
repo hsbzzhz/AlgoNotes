@@ -43,9 +43,9 @@ public class TreeNode {
     }
 
 
-    public static void levelOrder(TreeNode tree){
+        public static void levelOrder(TreeNode tree){
         /*
-         * 使用bfs层序遍历一棵二叉树
+         * 使用 bfs 层序遍历一棵二叉树
          * 从上到下层序遍历，每层内从左至右
          */
         if (tree == null){
@@ -54,36 +54,34 @@ public class TreeNode {
         // 用链表来充当一个队列
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.add(tree); // 存入 list中
-        
-        // 从上到下遍历二叉树的每一层
         while (!queue.isEmpty()){
-            TreeNode node = queue.poll(); // 取出队头元素
-            System.out.println(tree.val);
-            // 
-            if (node.left!=null){
-                queue.add(node.left);
+            TreeNode cur = queue.poll(); // 取出队头元素
+            System.out.print(cur.val+" ");
+            if (cur.left!=null){
+                queue.add(cur.left);
             }
-            if (node.right != null){
-                queue.add(node.right);
+            if (cur.right != null){
+                queue.add(cur.right);
             }
         }
     }
 
 
-    public static void treeDFS(TreeNode tree){
-        // DFS
-        Stack<TreeNode> stack = new Stack<>();
-        stack.add(tree);
-        while(!stack.empty()){
-            TreeNode node = stack.pop();
-            System.out.println(node.val);
-            if (node.left !=null){
-                stack.push(node.left);
-            }
-            if (node.right != null){
-                stack.push(node.right);
-            }
-        }
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(0);
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        root.left = node1;
+        root.right = node2;
+        node1.right=node3;
+        node2.left = node4;
+
+        /*
+         * 三种递归遍历，都是dfs
+         */
+        TreeNode.levelOrder(root);
     }
 
 }

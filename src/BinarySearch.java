@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Collections;
+
 public class BinarySearch {
     public int findTarget(int [] nums, int target){
         int low = 0, high = nums.length-1;
@@ -13,5 +16,12 @@ public class BinarySearch {
             }
         }
         return -1;
+    }
+
+    public static void main(String[] args) {
+        Integer[] arr = {3,9,0,7,1,4,6};
+        // Arrays.sort(arr);  // 正序号
+        Arrays.sort(arr, Collections.reverseOrder());  // 正序号
+        System.out.println(Arrays.toString(arr));
     }
 }

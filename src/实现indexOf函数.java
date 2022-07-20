@@ -4,10 +4,8 @@ public class 实现indexOf函数 {
         //  需要嵌套循环，否则用KMP
         int n = haystack.length(), m = needle.length();
         for (int i = 0; i + m <= n; i++) {
-
             for (int j = 0; j < m; j++) {
                 if (haystack.charAt(i + j) != needle.charAt(j)) {
-
                     break;
                 }
                 if (j==needle.length()-1){

@@ -8,8 +8,8 @@ public class n数之和 {
          *  给定一个数组，找出一个数组里相加等于target序号
          *  这里用的 hashmap实现的
          */
-        Map<Integer, Integer> hashtable = new HashMap<Integer, Integer>();
-        for (int i = 0; i < nums.length; ++i) {
+        Map<Integer, Integer> hashtable = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
             if (hashtable.containsKey(target - nums[i])) {
                 return new int[]{hashtable.get(target - nums[i]), i};
             }
@@ -24,8 +24,8 @@ public class n数之和 {
          *  暴力法
          */
         int n = nums.length;
-        for (int i = 0; i < n; ++i) {
-            for (int j = i + 1; j < n; ++j) {
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
                 if (nums[i] + nums[j] == target) {
                     return new int[]{i, j};
                 }

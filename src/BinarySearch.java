@@ -20,8 +20,8 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         Integer[] arr = {3,9,0,7,1,4,6};
-        // Arrays.sort(arr);  // 正序号
-        Arrays.sort(arr, Collections.reverseOrder());  // 正序号
+        // Arrays.sort(arr);  // 正序排列
+        Arrays.sort(arr, Collections.reverseOrder());  // 倒序排列
         System.out.println(Arrays.toString(arr));
     }
 }

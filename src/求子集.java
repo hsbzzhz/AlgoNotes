@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * 求子集
+ * 比如输入：nums = [1,2,3]
+ * 输出 [ [],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3] ]
+ *
+ * ref. https://labuladong.gitee.io/algo/1/7/
+ */
 public class 求子集 {
     List<List<Integer>> res = new ArrayList<>();
     // 记录回溯算法的递归路径
@@ -27,6 +34,8 @@ public class 求子集 {
     }
 
     public static void main(String[] args) {
-
+        int[] nums = new int[]{1,2,3};
+        求子集 demo = new 求子集();
+        System.out.println(demo.subsets(nums).toString());
     }
 }

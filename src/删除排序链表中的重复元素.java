@@ -1,3 +1,5 @@
+import 基础数据结构操作.ListNode;
+
 public class 删除排序链表中的重复元素 {
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null) {

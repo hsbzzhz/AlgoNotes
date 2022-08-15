@@ -11,14 +11,14 @@ public class 有效的括号 {
 
         Stack<Character> stack = new Stack<>(); // 栈中就只会放左括号
         for (char ch:s.toCharArray()) {  // 把string 转换为 char
-            if (pairs.containsKey(ch)){   // 如果碰到右括号, 就出栈，栈顶元素应该是hashmap的值
-                if (stack.isEmpty() || stack.peek() != pairs.get(ch)){
+            if (pairs.containsKey(ch)){   // 如果碰到右括号
+                if (stack.isEmpty() || stack.peek() != pairs.get(ch)){  // 如果栈顶不是 （， 就错了；或者栈空了也是错了
                     return false;
                 }
-                stack.pop(); // 推出栈顶元素
+                stack.pop(); // 就出栈顶元素，栈顶元素应该是hashmap的值
             }
             else {
-                stack.push(ch);
+                stack.push(ch); // 没有匹配到hashmap，就至今入栈
             }
         }
         return stack.isEmpty();

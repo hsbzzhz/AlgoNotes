@@ -1,3 +1,5 @@
+import 基础数据结构操作.ListNode;
+
 public class 俩链表相加 {
     /**两个链表相加**/
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {

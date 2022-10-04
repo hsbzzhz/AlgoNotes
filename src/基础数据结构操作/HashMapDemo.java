@@ -10,16 +10,18 @@ public class HashMapDemo {
         map.put(1,4);
         map.put(2,5);
         map.put(3,6);
-        // 使用for each遍历key
+
+
+        // 1. 使用for each遍历key
         for(Integer key: map.keySet()){
             Integer val = map.get(key);
-//            System.out.println(key + "=" + val);
+            System.out.println(key + "=" + val);
         }
-        // 使用for each 遍历 map 的 entrySet() 集合
+        // 2. 使用for each 遍历 map 的 entrySet() 集合
         for(Map.Entry<Integer, Integer> entry: map.entrySet()){
-//            System.out.println(entry.getKey()+ " = "+ entry.getValue());
+            System.out.println(entry.getKey()+ " = "+ entry.getValue());
         }
-        // 使用 stream api 遍历
+        // 3.使用 stream api 遍历
         map.entrySet().stream().forEach((entry)->{
             System.out.println(entry.getKey()+" = "+entry.getValue());
         });

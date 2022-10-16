@@ -1,11 +1,10 @@
 package 基础数据结构操作;
 
-import java.util.StringJoiner;
-
 public class StringDemo {
+
+    private static final String str = "2022 cheer up!";
     public static void travelString(){
         // 三种方式遍历字符串
-        java.lang.String str = "2022 cheer up!";
 
         // 方法一： 使用charAt
         for(int i=0; i<str.length(); i++){
@@ -19,18 +18,32 @@ public class StringDemo {
 
         // 方法三： 把 string 变成char数组
         char[] c = str.toCharArray();
-        for(int i=0; i< c.length; i++){
-            System.out.println(c[i]);
+        for (char value : c) {
+            System.out.println(value);
         }
     }
 
-    public static void main(java.lang.String[] args) {
-        // 把String 数组转换为字符串
-        java.lang.String[] names = {"Bob", "Alice", "Grace"};
-        StringJoiner sj = new StringJoiner(", ");
-        for (java.lang.String name : names) {
-            sj.add(name);
+    public static void patternMatch(){
+        boolean res = str.matches("^[a-zA-Z]\\d{1,8}$");
+        // 把double换成String，.vauleOf就是转换成对应该类
+        String raw = String.valueOf(3.49);
+
+        // 碰到数字，要在其中补0；如果不是数字怎么办
+
+        // substring，记住是小写，然后是取1-4位的值
+        System.out.println(str.substring(1,5)); //
+    }
+
+    public static void splitDemo(){
+        // 分隔符为空格的时候可以" "，否则要加转义符 \\
+        String temp = "dff.dff.efff.ggg";
+        String[] spilt = temp.split("\\.");
+        for (String s :spilt) {
+            System.out.println(s);
         }
-        System.out.println(sj.toString());
+    }
+
+    public static void main(String[] args) {
+
     }
 }

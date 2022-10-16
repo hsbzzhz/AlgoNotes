@@ -32,10 +32,10 @@ public class JavaStream {
         //计算流符合条件的流的数量
         long count = stringStream.count();
         //forEach遍历->打印元素
-        strings.stream().forEach(System.out::println); // 此处可以省略掉 stream()
+        strings.forEach(System.out::println);
 
         //limit 获取到1个元素的stream
-        Stream<String> limit = strings.stream().limit(1);
+        Stream<String> limit = strings.stream().limit(1); // "abc" 从前开始保留
         //toArray 比如我们想看这个limitStream里面是什么，比如转换成String[],比如循环
         String[] array = limit.toArray(String[]::new);  // 把stream转换回 array
 

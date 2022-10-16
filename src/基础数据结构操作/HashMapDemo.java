@@ -1,6 +1,7 @@
 package 基础数据结构操作;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HashMapDemo {
@@ -25,6 +26,13 @@ public class HashMapDemo {
         map.entrySet().stream().forEach((entry)->{
             System.out.println(entry.getKey()+" = "+entry.getValue());
         });
+
+        // 这里用stream处理 hashmap，输出array可以用toArray() 方法，如果不注明输出类型，就直接输出Object[]
+        // 而且这里输出类型只能是包装类
+        Integer[] res = map.keySet().stream().filter(key -> key != 2).sorted().toArray(Integer[]::new);
+        for (int re : res) {
+            System.out.println(re);
+        }
 
     }
 

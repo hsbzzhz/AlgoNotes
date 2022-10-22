@@ -12,7 +12,7 @@ public class ArrayListDemo {
         List<String> list1= new ArrayList<>(Arrays.asList("a0034","z8834","h440"));
 
         // 将arraylist 转为 string数组，直接转可能会报错，这样比较保险
-        list.toArray(new String[0]);  // 简化这样写，但为啥不太清楚
+        list.toArray(new String[0]);  // 简化这样写，但为啥不太清楚（这里要是包装类）
 
         // arraylist 转 string，这里可以用StringBuilder
         String res = "";

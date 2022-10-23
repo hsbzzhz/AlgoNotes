@@ -1,5 +1,6 @@
 package 基础数据结构操作;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,9 @@ public class HashMapDemo {
         for(Map.Entry<Integer, Integer> entry: map.entrySet()){
             System.out.println(entry.getKey()+ " = "+ entry.getValue());
         }
+        // 2*.将map转换为 list
+        List<Map.Entry<Integer, Integer>> arrayList = new ArrayList<>(map.entrySet());
+
         // 3.使用 stream api 遍历
         map.entrySet().stream().forEach((entry)->{
             System.out.println(entry.getKey()+" = "+entry.getValue());

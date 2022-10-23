@@ -22,12 +22,12 @@ public class BFS {
                     return step;
                 }
                 /* 将当前节点的临节点也加入到队列中 */
-                for (Node x: cur.adj()) {
-                    if (!visited.contains(x)){  // 防止重复访问
-                        queue.offer(x);
-                        visited.add(x);
-                    }
-                }
+//                for (Node x: cur.adj()) {
+//                    if (!visited.contains(x)){  // 防止重复访问
+//                        queue.offer(x);
+//                        visited.add(x);
+//                    }
+//                }
             }
             step++;  // 在此更新步数
         }

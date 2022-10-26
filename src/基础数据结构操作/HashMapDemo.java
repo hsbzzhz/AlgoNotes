@@ -1,9 +1,6 @@
 package 基础数据结构操作;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HashMapDemo {
     public static void travelHashMap(){
@@ -12,7 +9,6 @@ public class HashMapDemo {
         map.put(1,4);
         map.put(2,5);
         map.put(3,6);
-
 
         // 1. 使用for each遍历key
         for(Integer key: map.keySet()){
@@ -40,7 +36,34 @@ public class HashMapDemo {
 
     }
 
+    public static void hashMapSort(){
+        /**
+         * 给hashmap排序，先要给它转换为list
+         */
+        // 初始化一个hashmap
+        Map<Integer, int[]> map = new HashMap<>();
+        map.put(1,new int[]{1,2});
+        map.put(2,new int[]{3,7});
+        map.put(3,new int[]{5,1});
+        // 1. 先把 map 放进 list 里
+        List<Map.Entry<Integer,int[]>> list = new ArrayList<>(map.entrySet());
+        // 2. 对list 进行排序
+        Collections.sort(list, new Comparator<Map.Entry<Integer, int[]>>() {
+            @Override
+            public int compare(Map.Entry<Integer, int[]> o1, Map.Entry<Integer, int[]> o2) {
+                return o2.getValue()[1] - o1.getValue()[1]; // 按照 value 中数组的后一位 降序
+            }
+        });
+
+        // 3. 输出  2, 1, 3
+        for(Map.Entry<Integer, int[]> entry: list) {
+            System.out.println(entry.getKey());
+        }
+
+    }
+
     public static void main(String[] args) {
-        travelHashMap();
+//        travelHashMap();
+        hashMapSort();
     }
 }

@@ -44,6 +44,9 @@ public class StringDemo {
     }
 
     public static void main(String[] args) {
-
+        // String 转换为 char
+        String temp = "a:3";
+        char ch1 = temp.charAt(0); // 转换单个String 为 char，即使只有一个 String 的时候也需要这样
+        char[] charArray = temp.toCharArray();  // 将整个String 转换为 char数组，可以填参数offset？
     }
 }

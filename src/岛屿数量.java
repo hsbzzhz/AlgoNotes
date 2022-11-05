@@ -34,7 +34,7 @@ public class 岛屿数量 {
     }
 
     /*
-     * Solution here!
+     * Solution is here!
      * 求岛屿的数量 - dfs
      */
     public int numIslands(char[][] grid) {

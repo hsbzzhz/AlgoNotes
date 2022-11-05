@@ -10,7 +10,7 @@ public class 身高体重排序 {
     public static void usingArray() {
 
         int n = hei.length;
-        // 需要建立一个二维数组
+        // 需要建立一个二维数组 {{1, 90, 45}, {2, 110, 90, 35}, {} ...}
         int[][] source = new int[n][3];
         for (int i = 0; i < n; i++) {
             source[i][0] = i+1;  // index
@@ -41,7 +41,7 @@ public class 身高体重排序 {
          */
         Map<Integer, int[]> map = new HashMap<>();
         for(int i =0; i < hei.length; i++) {
-            map.put(i+1, new int[]{hei[i], wei[i]});
+            map.put(i+1, new int[]{hei[i], wei[i]}); // {index: {90, 45}}
         }
         // 1. 将map 转换成list
         List<Map.Entry<Integer, int[]>> list = new ArrayList<>(map.entrySet());

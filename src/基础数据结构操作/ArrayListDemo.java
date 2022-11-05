@@ -65,7 +65,21 @@ public class ArrayListDemo {
         });
     }
 
+    public static void subArray(){
+        // 1. 数组切片
+        int[] test_int = {1,2,3,4,5};
+        int[] arraySub = Arrays.copyOfRange(test_int,1,4);  // 左开右闭区间 2,3,4
+
+        // 2. String切片
+        String test = "12345";
+        test = test.substring(1,4);
+
+        // 3. list数组
+        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+        List<Integer> list1 = list.subList(1,4);
+        System.out.println(list1);
+    }
+
     public static void main(String[] args) {
-        transfer();
     }
 }

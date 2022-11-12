@@ -16,8 +16,6 @@ public class 排序数组原地去重 {
             // 如果快指针遇到前后相同都就跳过
             fast++;
         }
-        // int[] SlowArr = Arrays.copyOfRange(nums,0,slow);
-        // java 中的切片 Arrays.toString() 是输出数组
         return slow;
     }
 

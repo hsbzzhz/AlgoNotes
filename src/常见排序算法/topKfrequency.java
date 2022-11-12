@@ -3,7 +3,9 @@ package 常见排序算法;
 import java.util.*;
 
 /**
- * 最小堆就是堆顶元素为最小
+ * 优先队列实现
+ * TODO: 2022/11/12  explain more
+ *
  */
 public class topKfrequency {
     public List<Integer> topKElement(int[] nums, int k){
@@ -32,7 +34,7 @@ public class topKfrequency {
                 pg.add(key);
             }
         }
-        // 取出最小堆中的元素
+        // 取出队头元素，即最小元素
         List<Integer> res = new ArrayList<>();
         while(!pg.isEmpty()){
             res.add(pg.remove());

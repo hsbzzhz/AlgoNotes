@@ -12,7 +12,7 @@ class Template {
         int step = 0;   // 记录扩散的步数
 
         while (!queue.isEmpty()) {   // queue is not empty
-            int sz = q.size(); // !这里一定要这么写
+            int sz = queue.size(); // !这里一定要这么写
             /* 2. 按顺序访问队列中的节点 */
             for(int i =0; i< sz; i++) {
                 Node cur = queue.poll(); // 访问的时候就出队，队头

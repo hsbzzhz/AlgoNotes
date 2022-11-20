@@ -1,42 +1,12 @@
 public class 岛屿数量 {
     /*
      * 200. https://leetcode.cn/problems/number-of-islands/
-     * ref. https://leetcode.cn/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/
-     */
-
-    // 解体模板
-    void dfs(int[][] grid, int row, int col) {
-        // 判断 base case
-        // 如果坐标 (r, c) 超出了网格范围，直接返回
-        if (!inArea(grid, row, col)) {
-            return;
-        }
-
-        // 如果格子不是岛屿，直接返回
-        if (grid[row][col] != 1) {
-            return;
-        }
-
-        // 标记岛屿，表明已遍历过
-        grid[row][col] = 2;
-
-        // 访问上、下、左、右四个相邻结点
-        dfs(grid, row - 1, col);
-        dfs(grid, row + 1, col);
-        dfs(grid, row, col - 1);
-        dfs(grid, row, col + 1);
-    }
-
-    // 判断坐标 (r, c) 是否在网格中
-    boolean inArea(int[][] grid, int r, int c) {
-        return 0 <= r && r < grid.length // r在 [0. length) 范围内
-                && 0 <= c && c < grid[0].length; // c在 [0. length) 范围内
-    }
-
-    /*
-     * Solution is here!
      * 求岛屿的数量 - dfs
+     * 题目：给m*n个网格，其中0 代表海洋，1代表岛屿，求连起来岛屿的数量
+     *
+     * 详见dfs模板
      */
+
     public int numIslands(char[][] grid) {
         int count =0;
         for (int i =0; i < grid.length; i++){
@@ -52,15 +22,15 @@ public class 岛屿数量 {
     }
 
     public void dfs(char[][] grid, int row, int col){
-        // 边界改成 ||
+        // 判断边界
         if(row<0 || row>=grid.length || col < 0 || col >= grid[0].length) {
             return;
         }
-
+        //
         if (grid[row][col] != '1') {
             return;
         }
-
+        // 改成访问过的
         grid[row][col] = '2';
 
         // 访问上、下、左、右四个相邻结点
@@ -68,6 +38,10 @@ public class 岛屿数量 {
         dfs(grid, row + 1, col);
         dfs(grid, row, col - 1);
         dfs(grid, row, col + 1);
+    }
+
+    public static void main(String[] args) {
+        // todo 加一点测试用例
     }
 }
 

@@ -15,7 +15,7 @@ public class 有效的括号 {
                 if (stack.isEmpty() || stack.peek() != pairs.get(ch)){  // 如果栈顶不是 （， 就错了；或者栈空了也是错了
                     return false;
                 }
-                stack.pop(); // 就出栈顶元素，栈顶元素应该是hashmap的值
+                stack.pop(); // 就出栈顶元素, 左括号，栈顶元素应该是hashmap的值
             }
             else {
                 stack.push(ch); // 没有匹配到hashmap，就至今入栈

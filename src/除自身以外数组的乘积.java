@@ -11,20 +11,20 @@ public class 除自身以外数组的乘积 {
 
         int[] ans = new int[len];
 
-        // 先计算左边的
+        // 从左到右，除了[i]    0 - i 的乘积，第一个元素为 1
         preSum[0] = 1;
         for(int i =1; i<len; i++){   // 这要从i=1开始
             preSum[i] = nums[i-1]*preSum[i-1];
         }
 
-        // 再算，从右到左的
+        // 从右到左， 除了[i]   i - len 的乘积，最后一个元素为 1
         postSum[len-1] = 1;
         for(int i=len-2; i>=0; i--){
             postSum[i] = nums[i+1]*postSum[i+1];
         }
 
         for (int i=0; i<len; i++){
-            ans[i] = preSum[i] + postSum[i];
+            ans[i] = preSum[i] * postSum[i];  // 这个就是除了nums 自身以外数的乘积
         }
         return ans;
     }

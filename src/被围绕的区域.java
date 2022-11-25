@@ -1,5 +1,3 @@
-package 常见排序算法;
-
 public class 被围绕的区域 {
     public void numIslands(char[][] board) {
         // 把四周访问一遍，

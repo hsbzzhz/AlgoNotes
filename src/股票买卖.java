@@ -1,4 +1,11 @@
 public class 股票买卖 {
+    /**
+     * todo complete it
+     *
+     *
+     * @param prices
+     * @return
+     */
     public static int maxProfit_greedy(int[] prices){
         int minPrice = prices[0], profit =0;
         for(int i=1; i<prices.length; i++){

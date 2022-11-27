@@ -2,6 +2,20 @@
 我们所熟悉的 DFS（深度优先搜索）问题通常是在树或者图结构上进行的
 
 ### 回溯问题
+本质是一个brute force算法，是一个决策树的遍历过程
+
+```python
+result = []
+def backtrack(路径, 选择列表):
+    if 满足结束条件:
+        result.add(路径)
+        return
+    
+    for 选择 in 选择列表:
+        做选择
+        backtrack(路径, 选择列表)
+        撤销选择
+```
 
 ### 岛屿相关
 比如：
@@ -46,7 +60,8 @@ class IslandTemplate {
     }
 }
 ```
-[ref.](https://leetcode.cn/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/)
+[ref1.](https://leetcode.cn/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/)
+[ref2.](https://labuladong.gitee.io/algo/4/31/107/)
 ### 树
 
 前序遍历：

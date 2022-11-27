@@ -14,7 +14,7 @@ public class TreeNode {
     public TreeNode(){}
 
     public static void preOrder(TreeNode tree){
-        // 前序遍历，中 - 左 - 右
+        // 前序遍历，root - 左 - 右
         if (tree==null)
             return;
         System.out.println(tree.val);
@@ -23,7 +23,7 @@ public class TreeNode {
     }
 
     public static void inOrder(TreeNode tree) {
-        // 中序遍历，左 中 右
+        // 中序遍历，左 root 右
         if (tree == null){
             return;
         }
@@ -33,7 +33,7 @@ public class TreeNode {
     }
 
     public static void postOrder(TreeNode tree){
-        // 后序遍历，左 右 中
+        // 后序遍历，左 右 root
         if (tree == null){
             return;
         }

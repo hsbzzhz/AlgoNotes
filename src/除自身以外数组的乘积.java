@@ -1,9 +1,12 @@
 public class 除自身以外数组的乘积 {
+    /**
+     * 前缀和
+     * 弄前后两个乘积列表，然后错位相乘即可
+     *
+     * @param nums
+     * @return
+     */
     public int[] productExceptSelf(int[] nums){
-        /*
-         * 前缀和
-         * 弄前后两个乘积列表，然后错位相乘即可
-         */
         int len = nums.length;
         // presum
         int[] preSum = new int[len];

@@ -1,23 +1,55 @@
 # 深度优先
 我们所熟悉的 DFS（深度优先搜索）问题通常是在树或者图结构上进行的
 
-### 回溯问题
+### 1. 回溯问题
 本质是一个brute force算法，是一个决策树的遍历过程
 
 ```python
 result = []
 def backtrack(路径, 选择列表):
-    if 满足结束条件:
+    if 满足结束条件:   ## step1.
         result.add(路径)
         return
     
-    for 选择 in 选择列表:
+    for 选择 in 选择列表:  ## step2.
         做选择
-        backtrack(路径, 选择列表)
+        backtrack(路径, 选择列表)  ## step3.
         撤销选择
 ```
 
-### 岛屿相关
+**例如题目：[求子集](https://labuladong.gitee.io/algo/1/7/)**<br>
+输入：nums = [1,2,3]<br>
+输出 [ [],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3] ]
+
+```java
+public class 求子集 {
+    List<List<Integer>> res = new ArrayList<>();
+    // 记录回溯算法的递归路径
+    List<Integer> track = new ArrayList<>();
+
+    public List<List<Integer>> subsets(int[] nums) {
+        backtrack(nums, 0);
+        return res;
+    }
+
+    // 回溯算法核心函数，遍历子集问题的回溯树
+    void backtrack(int[] nums, int start) {
+        // 前序位置，每个节点的值都是一个子集
+        res.add(new ArrayList<>(track));
+        // 回溯算法标准框架
+        for (int i = start; i < nums.length; i++) {
+            // 做选择
+            track.add(nums[i]);
+            // 通过 start 参数控制树枝的遍历，避免产生重复的子集
+            backtrack(nums, i + 1);
+            // 撤销选择
+            track.remove(track.size() - 1);
+        }
+    }
+}
+```
+
+### 2. 岛屿相关
 比如：
 * [岛屿数量](https://leetcode.cn/problems/number-of-islands/) （Easy）
 * [岛屿的周长](https://leetcode.cn/problems/island-perimeter/) （Easy）
@@ -62,7 +94,7 @@ class IslandTemplate {
 ```
 [ref1.](https://leetcode.cn/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/)
 [ref2.](https://labuladong.gitee.io/algo/4/31/107/)
-### 树
+### 3. 树
 
 前序遍历：
 ```java

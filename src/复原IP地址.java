@@ -3,61 +3,53 @@ import java.util.List;
 
 public class 复原IP地址 {
     /**
-     *     作者：LeetCode-Solution
-     *     链接：https://leetcode.cn/problems/restore-ip-addresses/solution/fu-yuan-ipdi-zhi-by-leetcode-solution/
+     * 题目：给了一段字符串 s，要用三个点把它分成4个ip地址，求能分出的所有答案
+     * ref. https://leetcode.cn/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/
      */
-    static final int SEG_COUNT = 4;
-    List<String> ans = new ArrayList<String>();
-    int[] segments = new int[SEG_COUNT];
+    private List<String> ans = new ArrayList<String>();
+    private List<String> temp = new ArrayList<String>();
 
     public List<String> restoreIpAddresses(String s) {
-        segments = new int[SEG_COUNT]; // 这里存的是path，四个ip地址
-        dfs(s, 0, 0);
+        if (s.length() < 4 || s.length() > 12) { // 相当于剪枝(1)，不要也行。直接排除不符合长度的答案
+            return ans;
+        }
+        dfs(s, 0);
         System.out.println(ans);
         return ans;
     }
 
-    public void dfs(String s, int segId, int segStart) {
-        /*
-         * 表示正在从 s[segStart] 的位置开始，搜索 IP 地址中的第 segId 段，其中 segId∈{0,1,2,3}
-         *
-         */
-        // 如果找到了 4 段 IP 地址并且遍历完了字符串，那么就是一种答案 --- step1.
-        if (segId == SEG_COUNT) { // segments里有四个元素
-            if (segStart == s.length()) { // s 也全部遍历完成
-                StringBuilder ipAddr = new StringBuilder();
-                for (int i = 0; i < SEG_COUNT; ++i) {
-                    ipAddr.append(segments[i]);
-                    if (i != SEG_COUNT - 1) {
-                        ipAddr.append('.');
-                    }
+    public void dfs(String s, int startIndex) {
+        if (startIndex == s.length() && temp.size() == 4) {  //条件满足
+            StringBuilder ipAddr = new StringBuilder(); // 这是单个ip 集合，包含四个子ip
+            for (int i = 0; i < 4; i++) {
+                ipAddr.append(temp.get(i));
+                if (i != 3) {  // 除了最后一个元素，都要加上 .
+                    ipAddr.append('.');
                 }
-                ans.add(ipAddr.toString());
             }
+            ans.add(ipAddr.toString());
             return;
         }
 
-        // 如果还没有找到 4 段 IP 地址就已经遍历完了字符串，那么提前回溯
-        if (segStart == s.length()) {
+         if (startIndex < s.length() && temp.size() == 4) { //  相当于剪枝(2)，不要也行。排除找到四个ip的答案，但是剩余还有字符串未被纳入
             return;
-        }
+         }
 
-        // 由于不能有前导零，如果当前数字为 0，那么这一段 IP 地址只能为 0
-        if (s.charAt(segStart) == '0') {
-            segments[segId] = 0;
-            dfs(s, segId + 1, segStart + 1);
-        }
+        for (int len = 1; len <= 3; len++) { // 需要凑1-3位的ip
+            if(startIndex + len -1 >= s.length()) return;  // 保证 sub 不会越界
 
-        // 一般情况，枚举每一种可能性并递归
-        int addr = 0;
-        for (int segEnd = segStart; segEnd < s.length(); ++segEnd) {
-            addr = addr * 10 + (s.charAt(segEnd) - '0'); // 单个ip
-            if (addr > 0 && addr <= 255) {  // 0xFF 为16进制255
-                segments[segId] = addr;
-                dfs(s, segId + 1, segEnd + 1);
-            } else {
-                break;
+            if (len != 1 && s.charAt(startIndex) == '0') { // 剔除不合法的前导0 ，如果是第一位是个0，那就给 0 作为一个ip
+                return;
             }
+
+            String st = s.substring(startIndex, startIndex + len); // 这是一段ip 例如255
+            if (len == 3 && Integer.parseInt(st) > 255) {  // 剪枝(3):截取字符串长度大于255时，就不是合法ip，长度为3感觉可以省略掉
+                return;
+            }
+
+            temp.add(st);  // 做选择
+            dfs(s, startIndex + len);  // 进入下一层，跳过这个ip
+            temp.remove(temp.size()-1); // 撤回，取消选择
         }
     }
 

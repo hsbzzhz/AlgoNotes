@@ -5,6 +5,7 @@ public class 复原IP地址 {
     /**
      * 题目：给了一段字符串 s，要用三个点把它分成4个ip地址，求能分出的所有答案
      * ref. https://leetcode.cn/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/
+     * 回溯
      */
     private List<String> ans = new ArrayList<String>();
     private List<String> temp = new ArrayList<String>();

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class ArrayListDemo {
 
     public static void transfer(){
-        // arraylist初始化，这里用一个String 数组来初始化
+        // arraylist初始化，这里用一个String 数组来初始化， 上下等同
         List<String> list= new ArrayList<>(Arrays.asList(new String[]{"a0034","z8834","h440"}));
         List<String> list1= new ArrayList<>(Arrays.asList("a0034","z8834","h440"));
 

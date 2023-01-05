@@ -30,7 +30,9 @@ public class StringDemo {
         // 把double换成String，.vauleOf就是转换成对应该类
         String raw = String.valueOf(3.49);
 
-        // 碰到数字，要在其中补0；如果不是数字怎么办
+        // 在数字前面补零
+        String formatCode = String.format("%08d",55666);//其中0表示补零，8表示总共要的位数，第二个参数要是整形，如果不是用Interger.valueOf来进行转换
+        System.out.println(formatCode);
 
         // substring，记住是小写，然后是取1-4位的值
         System.out.println(str.substring(1,5)); //

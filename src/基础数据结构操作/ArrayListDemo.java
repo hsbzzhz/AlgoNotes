@@ -38,8 +38,8 @@ public class ArrayListDemo {
         Arrays.sort(numArray1, new Comparator<Integer>() {  // 自定义排序方法，匿名函数实现内部类
             @Override
             public int compare(Integer e1, Integer e2) {
-                // return e1.compareTo(e2);
-                return e1 - e2;
+                // 升序，e1防在前面，这种写法适用于字符串排序
+                return e1.compareTo(e2);
             }
         });
         // 2. 二维数组排序

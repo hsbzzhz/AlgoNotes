@@ -24,7 +24,27 @@ public class StringDemo {
             System.out.println(value);
         }
     }
+    
+    public static void indexIdentify() {
+        String s1 = "132abct";
+        // 求子串在s1中的位置，如果匹配不上就返回-1
+        int index = s1.indexOf("abc");
+        System.out.println(index); // 3, 从0开始算
+    }
 
+    public static void transform(){
+        // 字符串的大小写转换
+        String s = "The Day Is Good";
+        System.out.println(s.toLowerCase());   //输出"the day is good"
+        System.out.println(s.toUpperCase());    //输出"THE DAY IS GOOD"
+
+        // Char的大小写转换
+        char a='A';
+        char b='b';
+        System.out.println(Character.toLowerCase(a));   //输出"a"
+        System.out.println(Character.toUpperCase(b));   //输出"B"
+    }
+    
     public static void patternMatch(){
         boolean res = str.matches("^[a-zA-Z]\\d{1,8}$");
         // 把double换成String，.vauleOf就是转换成对应该类

@@ -65,16 +65,19 @@ public class JavaStream {
         List<String> strings2 = Arrays.asList("xyz", "jqx");
         Stream.concat(strings2.stream(),strings.stream()).count();
 
-        //注意 一个Stream只能操作一次，不能断开，否则会报错。
-        Stream stream = strings.stream();
-        //第一次使用
-        stream.limit(2);
-        //第二次使用
-        stream.forEach(System.out::println);
-        //报错 java.lang.IllegalStateException: stream has already been operated upon or closed
-
-        //但是可以这样, 连续使用
+        //一个流只能使用一次，但是可以这样, 连续使用
         stream.limit(2).forEach(System.out::println);
+
+        // 形如{{"abc","acd", "ccd"}, {"acc"}, {"qqd", "errt"}}
+        // 这种嵌套数组，如果想把它整合为一个数组，可以用flatMap
+        // list.stream().flatMap(Collection::stream)
+
+        // 多个条件排序，这个从底至上的条件排
+        // List<Department> res = map.values().stream().flatMap(Collection::stream)
+        //     .sorted(Comparator.comparing(Department::getDepartmentName))
+        //     .sorted(Comparator.comparing(Department::getCity))
+        //     .collect(Collectors.toList());
+       
     }
     public static void main(String[] args) {
         StreamDemo();

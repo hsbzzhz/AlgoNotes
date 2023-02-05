@@ -66,7 +66,7 @@ public class JavaStream {
         Stream.concat(strings2.stream(),strings.stream()).count();
 
         //一个流只能使用一次，但是可以这样, 连续使用
-        stream.limit(2).forEach(System.out::println);
+        map.limit(2).forEach(System.out::println);
 
         // 形如{{"abc","acd", "ccd"}, {"acc"}, {"qqd", "errt"}}
         // 这种嵌套数组，如果想把它整合为一个数组，可以用flatMap

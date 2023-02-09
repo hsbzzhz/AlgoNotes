@@ -1,6 +1,6 @@
 public class 最大连续1的个数 {
     /*
-     * 《滑动窗口》
+     * temp: 滑动窗口
      * ref. https://leetcode.cn/problems/max-consecutive-ones-iii/
      * 题目：给定{1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0} 这样的数组，
      * 求最长连续 1 的个数，可以有 k 次机会把 0 翻成 1

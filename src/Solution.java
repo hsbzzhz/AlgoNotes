@@ -8,28 +8,27 @@ import java.util.stream.Collectors;
 
 public class Solution {
 
-    public TreeNode createBinaryTree(int[][] descriptions) {
-//        Map<Integer, Boolean> findRoot = new HashMap<>();
-        Set<Integer> hasParent = new HashSet<>();
-        Map<Integer, TreeNode> map = new HashMap<>();
-
-        for (int[] each : descriptions) {
-            hasParent.add(each[1]); //必定有父节点的，不是root
-            if (!map.containsKey(each[0])) map.put(each[0], new TreeNode(each[0]));
-            if (!map.containsKey(each[1])) map.put(each[1], new TreeNode(each[1]));
-
-            //左右关系
-            if (each[2] == 1) {
-                map.get(0).left = map.get(1);
-            } else {
-                map.get(0).right = map.get(1);
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            List<Integer> ret = new ArrayList<>();
+            for(TreeNode node : queue) {
+                TreeNode cur = queue.poll();
+                ret.add(cur.val);
+                if (cur.left!=null){
+                    //将左右子树加入优先队列
+                    queue.add(cur.left);
+                }
+                if (cur.right!=null){
+                    //将左右子树加入优先队列
+                    queue.add(cur.right);
+                }
             }
+            res.add(ret);
         }
-
-        for (int key: map.keySet()) {
-            if (!hasParent.contains(key)) return map.get(key);
-        }
-        return null;
+        return res;
     }
     public static void main(String[] args) {
         int[] nums = {3,1,3,4,2};

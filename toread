@@ -1,0 +1,44 @@
+二叉树有根节点，根节点值为-1。且将根节点所在的位置记为第0层，第0个。
+给出一组operations操作。比如：operations[i] = [[0,0] , [0,0] , [1,1] , [1,0] , [2,1] , [2,1]]。
+意为在第j层，第k个节点上构建值为i的子节点，构建原则如下：
+如果该节点没有左子节点，先生成左子节点
+如果该节点存在左子节点，则生成右子节点
+如果该节点左右子节点均已存在，则无事发生
+
+注意这里第j层指的是operations数组中的第一个数字，例如[1,0]中的1，[2,1]中的2。
+第k个指的是operations数组中的第二个数字，例如[1,0]中的0，[2,1]中的1。并且尤其注意这里的k指的是相应层出生顺序为k的节点，而非从左到右的顺序！！！
+笔者描述能力有限，如果还不懂，可以看下面的具体讲解与图形。
+例如题目中提到的operations[i] = [[0,0] , [0,0] , [1,1] , [1,0] , [2,1] , [2,1]]，应该构建出如下的二叉树图形：
+
+
+class Solution {
+    private Map<Integer, Map<Integer, BinaryTreeNode>> map = new HashMap<>();
+ 
+    public BinaryTreeNode createTree(int[][] operations) {
+        BinaryTreeNode root = new BinaryTreeNode(-1);
+        Map<Integer, BinaryTreeNode> layer0 = new HashMap<>();
+        map.put(0, layer0);
+        layer0.put(0, root);
+        int i = 0;
+        for (int[] operation : operations) {
+            Map<Integer, BinaryTreeNode> layer = map.getOrDefault(operation[0], new HashMap<>());
+            map.put(operation[0], layer);
+            BinaryTreeNode pNode = layer.get(operation[1]);
+            BinaryTreeNode cNode = new BinaryTreeNode(i);
+            if (pNode.left == null) {
+                pNode.left = cNode;
+            } else if (pNode.right == null) {
+                pNode.right = cNode;
+            } else {
+                i++;
+                continue;
+            }
+            int newHeight = operation[0] + 1;
+            Map<Integer, BinaryTreeNode> newLayer = map.getOrDefault(newHeight, new HashMap<>());
+            map.put(newHeight, newLayer);
+            newLayer.put(newLayer.size(), cNode);
+            i++;
+        }
+        return root;
+    }
+}

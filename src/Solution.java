@@ -1,53 +1,37 @@
 import 基础数据结构操作.ListNode;
 import 基础数据结构操作.TreeNode;
-
-import java.io.InputStream;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicIntegerArray;
-import java.util.stream.Collectors;
 public class Solution {
-
-    int[] node = {1,3,5,6,7,8};
-    int[][] graph = {{5,7,8},{},{6},{},{},{}};
-    public List<Integer> getNodes(int depth, int[] roots) {
-        Queue<Integer> queue = new LinkedList<>();
-        for (int each : roots) {
-            queue.add(each);
-        }
-
-        List<Integer> res = new ArrayList<>();
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                int cur = queue.poll();
-                // System.out.println(cur);
-                if (depth == 1) {
-                    res.add(cur);
-                }
-                for (int each: graph[findIndex(cur)]) {
-                    if (cur == 3) {
-                        System.out.println("reach out");
-                    }
-                    queue.add(each);
-                }
-            }
-            depth--;
-        }
-        System.out.println(res);
+    List<String> res = new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        StringBuilder path = new StringBuilder();
+        dfs(n, n, path);
         return res;
     }
 
-    private int findIndex(int target) {
-        for (int i = 0; i < node.length; i++) {
-            if (node[i] == target) {
-                return i;
-            }
+    private void dfs(int left, int right, StringBuilder path) {
+        if (left < 0 || right < 0) {
+            return;
         }
-        return -1;
+        // 只有左边括号先于右边括号用完才行，秒啊
+        if (left > right) {
+            return;
+        }
+
+        if (left == 0 && right == 0) {
+            res.add(path.toString());
+            System.out.println(path);
+        }
+        path.append('(');
+        dfs(left-1, right, path);
+        path.deleteCharAt(path.length()-1);
+
+        path.append(')');
+        dfs(left, right-1, path);
+        path.deleteCharAt(path.length()-1);
     }
 
     public static void main(String[] args) {
-         new Solution().getNodes(3, new int[] {1,3});
+        new Solution().generateParenthesis(3);
     }
 }

@@ -65,18 +65,22 @@
                 </div>
                 <div class="idea-container">
                     <ul>
-                        <li v-for="(each,index) in issueData" :key="index" class="idea-container-list">
-                            <div class="idea-container-con" onclick="jumptopage(each.link)">
+                        <li v-for="(each, index) in issueData" :key="index" class="idea-container-list">
+<!--                            <div class="idea-container-con" @click="jumpPage(each)">-->
+                            <div class="idea-container-con">
                                 <div class="idea-list-theme">
                                     <h2 :title="each.title">{{each.title}}</h2>
                                     <i class="status-label rejected">{{each.processingStatus}}</i>
                                 </div>
-                                <div class="idea-list-description">
-                                    {{each.detail}}
+                                <div>
+                                    <div class="idea-list-description" :style="{'-webkit-line-clamp': unflod?'4' : '2'}">
+                                        {{each.detail}}
+                                    </div>
+                                    <i @click="handleUpdateStyle"> {{ unflod ? '展开更多>>>' : '收起' }}</i>
                                 </div>
                                 <div class="idea-list-create-info">
                                     <div class="create-info-con">
-                                        <div class="idea-creator-icon" style="background:url(http://w3.huawei.com/w3lab/rest/yellowpage/face/WX633528/45)"></div>
+                                        <div class="idea-creator-icon" style="background:url(https://img2.baidu.com/it/u=3118660554,2865020389&fm=253&fmt=auto&app=138&f=JPEG?w=200&h=200)"></div>
                                         <div class="idea-creator">{{each.ask}}</div>
                                         <div class="idea-create-time">发布于：{{each.publishTime}}</div>
                                     </div>
@@ -136,7 +140,7 @@
         </div>
     </div>
 </div>
-<script src="http://100.95.59.76:8050/source/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
 <!-- <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script> -->
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -156,7 +160,7 @@
             issueData: [],
             more_msg: '点击加载更多',
             page: 1,
-
+            unflod: [],
             menuItemsLay1:[
                 {
                     name: '最新' ,
@@ -236,18 +240,44 @@
         },
         mounted() {
             this.initPost();
-            this.getIssueData(this.page,10);
+            // this.getIssueData(this.page,10);
+            this.mockIssueData();
         },
         watch: {
             reqInfo: {
                 handler(val, oldVal) {
-                    // console.log(`new: ${val}, old: ${oldVal}`);
                     this.getIssueData(1,10);
                 },
                 deep: true
             }
         },
         methods: {
+            mockIssueData: function () {
+                this.issueData = [
+                    {
+                        title: '1title1tile2tile2tile3tile23',
+                        detail: '我们知道Spring有两大类事件，一类是Application事件，超类是SpringApplicationEvent，这类事件是在Spring程序启动时，过程中分为几个阶段，每进行一个阶段，发出一个事件，依次对应ApplicationStartingEvent到ApplicationReadyEvent。标志着Application从启动开始到启动完成，各个阶段的分割点。\n' +
+                            '————————————————\n' +
+                            '版权声明：本文为CSDN博主「AndysCat」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。\n' +
+                            '原文链接：https://blog.csdn.net/u014453515/article/details/85268526',
+                        processingStatus: '已采纳',
+                        ask: 'hogan speaking',
+                        link: 'https://baidu.com/',
+                        publishTime: '2022-04-29',
+                    },
+                    {
+                        title: '2title1tile2tile2tile3tile23',
+                        detail: '我们知道Spring有两大类事件，一类是Application事件，超类是SpringApplicationEvent，这类事件是在Spring程序启动时，过程中分为几个阶段，每进行一个阶段，发出一个事件，依次对应ApplicationStartingEvent到ApplicationReadyEvent。标志着Application从启动开始到启动完成，各个阶段的分割点。\n' +
+                            '————————————————\n' +
+                            '版权声明：本文为CSDN博主「AndysCat」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。\n' +
+                            '原文链接：https://blog.csdn.net/u014453515/article/details/85268526',
+                        processingStatus: '已采纳',
+                        ask: 'hogan speaking',
+                        link: null,
+                        publishTime: '2022-04-30',
+                    }
+                ]
+            },
             handleClickMenu1: function(item){
                 // 我的/最新
                 this.reqInfo.askId = item.id;
@@ -264,6 +294,14 @@
             handleClickMenu4: function(item){
                 // 阶段
                 this.reqInfo.processingStatus = item.id;
+            },
+            jumpPage: function (item) {
+                if (item.link !== null) {
+                    window.open(item.link);
+                }
+            },
+            handleUpdateStyle: function () {
+                this.unflod = !this.unflod
             },
             initPost: function () {
                 let self = this;
@@ -311,10 +349,6 @@
             loadIssue: function () {
                 this.getIssueData(this.page++, 10)
             },
-            jumptopage(item) {
-                console.log(item);
-                window.open(item);
-            }
         }
     });
 </script>

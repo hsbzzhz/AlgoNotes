@@ -1,6 +1,8 @@
 package 基础数据结构操作;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class StringDemo {
 
@@ -83,6 +85,19 @@ public class StringDemo {
         String str = Arrays.toString(array);  // 方法一： 用Arrays ：[0 ,1 ,2]
         String str2 = new String(array); // 方法二： new String ： 012
         String str3 = String.valueOf(array); //方法三： 012
+    }
+
+    /**
+     * 翻转 String 或 String[]
+     */
+    public static void reserveString(String[] strs, String str) {
+        // 1. 翻转 string：转化为 StringBuilder
+        StringBuilder strResult  = new StringBuilder(str);
+        StringBuilder reverse = strResult.reverse();
+        String reservedStr = reverse.toString();
+        // 2. 翻转 String[]： 转为list，用collections工具
+        List<String> lst = Arrays.asList(strs);
+        Collections.reverse(lst);
     }
 
     public static void main(String[] args) {

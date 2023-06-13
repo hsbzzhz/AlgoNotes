@@ -87,6 +87,33 @@ public class StringDemo {
         String str3 = String.valueOf(array); //方法三： 012
     }
 
+        public static void stringList() {
+        /*
+         * String 和 List 互相转换
+         */
+
+        // 1. String数组 转换为 list
+        String[] arr = {"0","1","2"};
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(arr));
+
+        // 2. list 转 String
+        String.join(",", list);
+    }
+
+    public static void stringReplace() {
+        // 1. 替换指定char
+        String a = "1-1-1-1";
+        String result1 = a.replace("-",""); // 结果为：1111
+
+        // 2. 替换第一个
+        String result2 = a.replaceFirst("1","0"); // 结果为 0-1-1-1
+
+        // 3. 替换指定位置的
+        StringBuilder sb = new StringBuilder(a);
+        sb.replace(1,3,"66666"); // 范围是 [1,3)
+
+    }
+    
     /**
      * 翻转 String 或 String[]
      */

@@ -61,9 +61,19 @@ public class HashMapDemo {
         }
 
     }
+    
+    public static void createIfNot() {
+        // 复杂结构的hashmap， 判断map中是否有这个key，如果有，就处理value值，没有就创建一个放到value中
+        Map<String, Set<String>> map = new HashMap<>();
+        Set<String> set = new HashSet<>(Arrays.asList("t1", "t2"));
+        map.put("london", set);
+
+        map.computeIfAbsent("london", key -> new HashSet<>()).add("t3");
+        map.computeIfAbsent("shanghai", key -> new HashSet<>()).add("t0");
+
+        System.out.println(map);
+    }
 
     public static void main(String[] args) {
-//        travelHashMap();
-        hashMapSort();
     }
 }

@@ -17,7 +17,7 @@ def backtrack(路径, 选择列表):
         撤销选择
 ```
 
-**例如题目：[求子集](https://labuladong.gitee.io/algo/1/7/)**<br>
+**例题1：[求子集](https://labuladong.gitee.io/algo/1/7/)**<br>
 输入：nums = [1,2,3]<br>
 输出 [ [],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3] ]
 
@@ -25,15 +25,15 @@ def backtrack(路径, 选择列表):
 public class 求子集 {
     List<List<Integer>> res = new ArrayList<>();
     // 记录回溯算法的递归路径
-    List<Integer> track = new ArrayList<>();
 
     public List<List<Integer>> subsets(int[] nums) {
-        backtrack(nums, 0);
+        List<Integer> track = new ArrayList<>();
+        backtrack(nums, track, 0);
         return res;
     }
 
     // 回溯算法核心函数，遍历子集问题的回溯树
-    void backtrack(int[] nums, int start) {
+    void backtrack(int[] nums, List<Integer> track, int start) {
         // 前序位置，每个节点的值都是一个子集
         res.add(new ArrayList<>(track));
         // 回溯算法标准框架
@@ -41,9 +41,63 @@ public class 求子集 {
             // 做选择
             track.add(nums[i]);
             // 通过 start 参数控制树枝的遍历，避免产生重复的子集
-            backtrack(nums, i + 1);
+            backtrack(nums, track, i + 1);
             // 撤销选择
             track.remove(track.size() - 1);
+        }
+    }
+}
+```
+**例题1：[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)**<br>
+示例 1：
+输入：digits = "23" <br>
+输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+```java
+public class Solution {
+    private Map<Character, String> phoneMap = new HashMap<Character, String>() {{
+        put('2', "abc");
+        put('3', "def");
+        put('4', "ghi");
+        put('5', "jkl");
+        put('6', "mno");
+        put('7', "pqrs");
+        put('8', "tuv");
+        put('9', "wxyz");
+    }};
+
+    // 路径
+    private StringBuilder path = new StringBuilder();
+
+    // 结果集
+    private List<String> res = new ArrayList<>();
+
+    public List<String> letterCombinations(String digits) {
+        if (digits.isEmpty()) {
+            return res;
+        }
+        dfs(digits, 0);
+        return res;
+    }
+
+    /**
+     * "2","3"输出结果是 "ad","ae","af" --- "bd","be","bf" --- "cd","ce","cf"
+     *
+     * @param digits 键盘输入的数字
+     * @param index 用index来遍历每个数字对应的字符串：abc、 def、 ghi
+     */
+    public void dfs(String digits, int index) {
+        // 长度符合要求，加入结果集
+        if (path.length() == digits.length()) {
+            res.add(path.toString());
+            return;
+        }
+        // 当前字母对应的字符串，需要逐个遍历加入path中 : abc
+        String strs = phoneMap.get(digits.charAt(index));
+        for (char ch : strs.toCharArray()) {
+            path.append(ch);
+            dfs(digits, index + 1); // 切换到下一个字母
+            path.deleteCharAt(path.length() - 1);
         }
     }
 }

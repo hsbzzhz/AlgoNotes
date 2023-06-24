@@ -6,14 +6,14 @@
 
 ```python
 result = []
-def backtrack(路径, 选择列表):
+def backtrack(start, 路径, 选择列表):
     if 满足结束条件:   ## step1.
         result.add(路径)
         return
     
-    for 选择 in 选择列表:  ## step2.
+    for i in 选择列表:  ## step2.
         做选择
-        backtrack(路径, 选择列表)  ## step3.
+        backtrack(i + 1, 路径, 选择列表)  ## step3.
         撤销选择
 ```
 
@@ -33,6 +33,7 @@ public class 求子集 {
     }
 
     // 回溯算法核心函数，遍历子集问题的回溯树
+    // start为第几层，每次回遡到上一层
     void backtrack(int[] nums, List<Integer> track, int start) {
         // 前序位置，每个节点的值都是一个子集
         res.add(new ArrayList<>(track));
@@ -40,7 +41,8 @@ public class 求子集 {
         for (int i = start; i < nums.length; i++) {
             // 做选择
             track.add(nums[i]);
-            // 通过 start 参数控制树枝的遍历，避免产生重复的子集
+            // 通过 i + 1 控制树枝的遍历，避免产生重复的子集
+            // 如果传入start + 1 就是在原有路径上重复遍历
             backtrack(nums, track, i + 1);
             // 撤销选择
             track.remove(track.size() - 1);
@@ -163,4 +165,44 @@ class BFS {
         traverse(root.right);
     }
 }
+```
+
+
+** 例题2 [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)
+
+
+```java
+public class Solution {
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        // 只要当前根节点是p和q中的任意一个，就返回（因为不能比这个更深了，再深p和q中的一个就没了）
+        if (root == p || root == q) {
+            return root;
+        }
+        // 两个节点都在左子树上
+        if (containNode(root.left, p) && containNode(root.left, q)) {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+        // 两个节点都在右子树上
+        if (containNode(root.right, p) && containNode(root.right, q)) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        // 如果p,q分属两侧，则公共祖先为根节点
+        return root;
+    }
+
+    public boolean containNode(TreeNode root, TreeNode node) {
+        if (root == null) {
+            return false;
+        }
+        if (root.val == node.val) {
+            return true;
+        }
+
+        return containNode(root.left, node) || containNode(root.right, node);
+    }
+}    
 ```

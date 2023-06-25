@@ -23,9 +23,18 @@ Objectres = resTemplate.getForObject(uri, Object.class);
 配置微服务datafactory 的 yaml
 
 
-定位解决慢查询~~
+mysql定位解决慢查询
+https://mp.weixin.qq.com/s?__biz=MzI2NzM1OTM4OA==&mid=2247494315&idx=1&sn=22e34f6e9d3a1dd7a8bc922cbbb5aebb&chksm=ea82af58ddf5264e63115092fc927b8eeb6d65ee222172c070aa42fc39450b9188486b1297f4&scene=27
+https://blog.csdn.net/my_miuye/article/details/125294804
+
+redis分布式锁
+https://blog.csdn.net/xq_adress/article/details/125474649
 
 
+sql三大范式 https://blog.csdn.net/yiZzhu/article/details/121616375
+第一范式，每列都是不可分割，比如有个字段叫学校信息，这违背了第一范式
+第二范式，在第一范式的基础上。每列都跟主键相关
+第三范式，在第二范式的的基础上。每列只能跟主键有直接关系，比如设备号的pid，这样设计就不是第三范式。
 
 kafka 
 Redis 槽数，使用场景啥的

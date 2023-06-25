@@ -34,3 +34,37 @@ class Template {
     }
 }
 ```
+
+- 二叉树的层序遍历 [基础数据结构操作/TreeNode.java]<br>
+例题：[199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)
+
+解题思路： 就是层序遍历，但只取每层的最后一个元素，层序遍历需要增加一个for来遍历每层的元素
+```java
+    public List<Integer> rightSideView(TreeNode root) {
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        List<Integer> res = new LinkedList<>();
+        // 树为空的情况
+        if (root == null) {
+            return res;
+        }
+        while (!queue.isEmpty()) {
+            // 记录每层的元素格式
+            int levelSize = queue.size();
+            // 逐个遍历，当遍历到最后一个元素时，则为最右元素
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode cur = queue.poll();
+                if (i == levelSize - 1) {
+                    res.add(cur.val);
+                }
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+        }
+        return res;
+    }
+```

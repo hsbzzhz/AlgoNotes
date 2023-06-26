@@ -50,7 +50,7 @@ public class 求子集 {
     }
 }
 ```
-**例题1：[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)**<br>
+**例题2：[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)**<br>
 示例 1：
 输入：digits = "23" <br>
 输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
@@ -168,9 +168,9 @@ class BFS {
 ```
 
 
-** 例题2 [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)
+**例题3 [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)**
 
-
+![](right-view-tree.jpeg)
 ```java
 public class Solution {
 

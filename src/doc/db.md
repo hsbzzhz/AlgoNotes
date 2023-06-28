@@ -44,7 +44,37 @@ spring中使用threadlocal 确保线程安全。确保有状态的bean能够以s
 
 kafka 
 https://blog.csdn.net/m0_65931372/article/details/125971395
-面试问题
+
+https://blog.csdn.net/roykingw/article/details/126611149
+一个topic 下有多个partition是，分别放在不同的broker中。
+数据内容放在了.log文件中，offset 放在了 .index文件中
+
+消费组中有多个consumer， 每个consumer对应一个partition。
+也就是：一个消费组，可以并行消费一个topic
+
+性能为啥好
+1. 顺序写，虽然kafka也是把数据写入磁盘，但是用的是顺序写，追加数据追加到末尾。随机写的话实在文件某个位置修改数据
+2. 零拷贝，Kafka 利用了 Linux 的 sendFile 技术（NIO），省去了进程切换和一次数据拷贝，让性能变得更好
+3. partition 下 分区存储log文件，检索快，读取快。每个log文件不超过1g
+
+保证消息不丢失
+1. 生产端发生丢失 - 网络问题：配置acks为-1
+2. mq内部服务崩溃- 消息未来得及同步，跨网络：如果acks为-1，那么会有多个follower确保接收到了消息，会选举产生新的leader partition，确保整个集群消息不会丢失
+3. 消费者pull的时候，丢失消息 - 跨网络：消费端有消息重试机制，每次消费者处理完一批消息后，都需要给broker返回个response，里面包括已经消费的offset。
+   broker收到offset后才会更新本地offset，否则下次消费者会重复读取该位置
+   
+   不要使用异步处理业务，应在业务结果落盘后再向broker更新offset
+
+
+如何防止重复消费：幂等  https://blog.csdn.net/dl962454/article/details/128087396
+1. 生产者开启自带的幂等，producer端，在send方法异常的时候会出现，更改系统配置prop.put（）改为true
+2. 消费端
+     * 消费端挂掉
+       解决方案：在消息体中添加唯一标识，setnx存到redis中，做幂等
+     * consumer 消费时间过长，Kafka消费端的参数max.poll.interval.ms定义了两次poll的最大间隔，它的默认值是 5 分钟，表示 Consumer 如果在 5 分钟之内无法消费完 poll方法返回的消息，那么Consumer 会主动发起“离开组”的请求。
+       在离开消费组后，开始Rebalance，因此提交Offset失败。之后重新Rebalance，消费者再次分配Partition后，再次poll拉取消息依然从之前消费过的消息处开始消费，这样就造成重复消费。而且若不解决消费单次消费时间过长的问题，这部分消息可能会一直重复消费。
+       整体上来说，如果我们在消费中将消息数据处理入库，但是在执行Offset提交时，Kafka宕机或者网络原因等无法提交Offset，当我们重启服务或者Rebalance过程触发，Consumer将再次消费此消息数据。
+       解决方法：调整两个参数，max.poll.interval.ms 调大； max.poll.records 调小
 
 NIO
 
@@ -57,6 +87,3 @@ NIO
 管理模块功能性。
 
 
-
-
-https://1drv.ms/u/s!Ao8xTxQYiFRqgz-0mFzltgiLamG0

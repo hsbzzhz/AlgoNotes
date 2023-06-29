@@ -27,6 +27,12 @@ mysql定位解决慢查询
 https://mp.weixin.qq.com/s?__biz=MzI2NzM1OTM4OA==&mid=2247494315&idx=1&sn=22e34f6e9d3a1dd7a8bc922cbbb5aebb&chksm=ea82af58ddf5264e63115092fc927b8eeb6d65ee222172c070aa42fc39450b9188486b1297f4&scene=27
 https://blog.csdn.net/my_miuye/article/details/125294804
 
+redis
+为啥快：
+1. 完全基于内存
+2. 整个结构类似于HashMap，查找和操作的复杂度均为O(1)，避免随机IO
+3. 。。。。
+
 redis分布式锁
 https://blog.csdn.net/xq_adress/article/details/125474649
 Redis 槽数，使用场景啥的
@@ -79,11 +85,5 @@ https://blog.csdn.net/roykingw/article/details/126611149
 NIO
 
 
-参与开发大数据平台的用户表达式计算功能模块。
-独立开发（前后端）物理模型的数据血缘功能模块。
-
-1.使用antlr框架实现用户自定义表达式校验和结果计算，负责前端+后端，丰富系统的灵活性和易用性。
-2.基于用户创建的流程画布DAG和流程画布中的引用物理模型，创建每个物理模型的血缘关系图，增强了物理模型
-管理模块功能性。
 
 

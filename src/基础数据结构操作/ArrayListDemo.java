@@ -49,7 +49,8 @@ public class ArrayListDemo {
         Arrays.sort(numArray2, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                return o1[0] - o1[2]; // 按照二维数组的0位升序排列
+                // return o1[0] - o1[0]; // 按照二维数组的0位升序排列（有溢出风险）
+                return Integer.compare(o1[0], o2[0]);  // 推荐这么写
             }
         });
     }

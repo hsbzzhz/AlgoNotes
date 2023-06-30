@@ -32,6 +32,7 @@ redis
 1. 完全基于内存
 2. 整个结构类似于HashMap，查找和操作的复杂度均为O(1)，避免随机IO
 3. 。。。。
+redis 部署https://blog.csdn.net/qq_26012495/article/details/120299332
 
 redis分布式锁
 https://blog.csdn.net/xq_adress/article/details/125474649

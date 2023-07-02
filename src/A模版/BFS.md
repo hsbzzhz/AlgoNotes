@@ -1,6 +1,6 @@
 ## bfs通用模板
 
-e.g. 计算从起点 start 到终点 target 到最近距离
+计算从起点 start 到终点 target 到最近距离
 ```java
 class Template {
     public void bfstemplate(Node start, Node target) {
@@ -35,9 +35,9 @@ class Template {
 }
 ```
 
-- 二叉树的层序遍历 [基础数据结构操作/TreeNode.java]<br>
+- 二叉树的层序遍历 详见：基础数据结构操作/TreeNode.java<br>
 例题：[199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)
-
+![](src/right-view-tree.jpeg)<br>
 解题思路： 就是层序遍历，但只取每层的最后一个元素，层序遍历需要增加一个for来遍历每层的元素
 ```java
     public List<Integer> rightSideView(TreeNode root) {

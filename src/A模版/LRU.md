@@ -4,7 +4,7 @@
 
 - 使用 linkedHashmap 实现
 - 如果不使用 linkedhashmap， 需要实现双向链表+map
-![](lru.png "lru")
+![](src/lru.png "lru")
 
 1. 为什么要使用双向链表实现?<br>
    *删除的时候需要移动前后节点的指针，只有双向链表才能保证操作的时间复杂度为O(1)*

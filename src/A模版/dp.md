@@ -28,3 +28,26 @@ int knapsack(int W, int N, int[] wt, int[] val) {
 1. **物体个数**是第一个数组元素，
 2. 外层循环也是物体个数
 3. `dp[i][w]` 表示第i个物体，使用w容量的背包，可以装到的最大价值是
+
+### 贪心算法
+[435. 无重叠区间](https://leetcode.cn/problems/non-overlapping-intervals)
+[452. 用最少数量的箭引爆气球](https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons)
+[55. 跳跃游戏](https://leetcode.cn/problems/jump-game/)
+### 动态规划
+例题1： [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)<br>
+题目说明：每间房内都藏有一定的现金，不能偷连续两家，返回偷到到最多金额
+![img.png](src/robber.png)
+```java
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n + 1];
+        // dp[0] 为偷完0个屋子得到到最大收益
+        // dp[1]为偷了第一个屋子的最大收益
+        dp[0] = 0; dp[1] = nums[0];
+        for (int i = 2; i < dp.length; i++) {
+            // 前一个屋子偷了，这个就不能偷了；要么前一个屋子没偷，偷这个屋子
+            dp[i] = Math.max(dp[i - 2] + nums[i-1], dp[i-1]);
+        }
+        return dp[n];
+    }
+```

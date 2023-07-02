@@ -38,11 +38,13 @@ redis分布式锁
 https://blog.csdn.net/xq_adress/article/details/125474649
 Redis 槽数，使用场景啥的
 
-sql三大范式 https://blog.csdn.net/yiZzhu/article/details/121616375
+~~sql三大范式 https://blog.csdn.net/yiZzhu/article/details/121616375
 第一范式，每列都是不可分割，比如有个字段叫学校信息，这违背了第一范式
 第二范式，在第一范式的基础上。每列都跟主键相关
-第三范式，在第二范式的的基础上。每列只能跟主键有直接关系，比如设备号的pid，这样设计就不是第三范式。
+第三范式，在第二范式的的基础上。每列只能跟主键有直接关系，比如设备号的pid，这样设计就不是第三范式。~~
 
+线程池
+https://blog.csdn.net/zxy5663/article/details/126471569
 
 java threadlocal 线程隔离
 https://blog.csdn.net/u010445301/article/details/111322569

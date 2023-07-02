@@ -114,7 +114,7 @@ public class Solution {
 
 如图：每个格子中的数字可能是 0 或者 1。我们把数字为 0 的格子看成海洋格子，数字为 1 的格子看成陆地格子，这样相邻的陆地格子就连接成一个岛屿。
 
-![island.png](island.png)
+![island.png](src/island.png)
 
 
 ```java
@@ -170,7 +170,7 @@ class BFS {
 
 **例题3 [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)**
 
-![](right-view-tree.jpeg)
+![](src/right-view-tree.jpeg)
 ```java
 public class Solution {
 

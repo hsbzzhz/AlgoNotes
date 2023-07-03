@@ -51,7 +51,7 @@ https://blog.csdn.net/u010445301/article/details/111322569
 使用场景：
 spring中使用threadlocal 确保线程安全。确保有状态的bean能够以singleton方式在多线程中正常工作。
 
-kafka 
+~~kafka~~ 
 https://blog.csdn.net/m0_65931372/article/details/125971395
 
 https://blog.csdn.net/roykingw/article/details/126611149

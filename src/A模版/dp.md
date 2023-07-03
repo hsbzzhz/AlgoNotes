@@ -115,12 +115,12 @@
     }
 ```
 ### 动态规划
-一维和二维dp区别：
+**一维和二维dp区别**：
 * 单个数组或者字符串需要用动归时， `dp[i]` 定义为 `nums[0:i]` 中每个状态的最好结果
 * 当两个数组或者字符串时，`dp[i][j]` 定义为 `A[0:i]` 和 `B[0:j]` 之间匹配结果
 
 **例题**： [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)<br>
-比如：每间房内都藏有一定的现金，不能偷连续两家，返回偷到到最多金额
+题目：每间房内都藏有一定的现金（给定数组），不能偷连续两家，返回偷到到最多金额
 
 ![img.png](src/robber.png)
 
@@ -169,14 +169,14 @@
 
 **例题**：[1143. 最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/)<br>
 **题目**：给你输入两个字符串 s1 和 s2，请你找出他们俩的最长公共子序列，返回这个子序列的长度。<br>
-**比如**：s1 = "zabcde", s2 = "acez"，它俩的最长公共子序列是 lcs = "ace"，长度为 3，所以算法返回 3
-(ref.)[https://leetcode.cn/problems/longest-common-subsequence/solution/fu-xue-ming-zhu-er-wei-dong-tai-gui-hua-r5ez6/]
+**比如**：s1 = "zabcde", s2 = "acez"，它俩的最长公共子序列是 lcs = "ace"，长度为 3，所以算法返回 3<br>
+[题解参考](https://leetcode.cn/problems/longest-common-subsequence/solution/fu-xue-ming-zhu-er-wei-dong-tai-gui-hua-r5ez6/)
 ### 状态定义
-dp[i][j] 表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列。<br>
-dp[i][j] 可以初始化为 0。当 i = 0 或者 j = 0 的时候，dp[i][j]表示的为空字符串和另外一个字符串的匹配
+`dp[i][j]` 表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列。<br>
+`dp[i][j]` 可以初始化为 0。当 i = 0 或者 j = 0 的时候，dp[i][j]表示的为空字符串和另外一个字符串的匹配
 ### 状态转移方程
-* 当 text1[i - 1] == text2[j - 1] 时，说明两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
-* 当 text1[i - 1] != text2[j - 1] 时，说明两个子字符串的最后一位不相等，那么此时的状态 dp[i][j] 应该是 dp[i - 1][j] 和 dp[i][j - 1] 的最大值。
+* 当 `text1[i - 1] == text2[j - 1]` 时，说明两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
+* 当 `text1[i - 1] != text2[j - 1]` 时，说明两个子字符串的最后一位不相等，那么此时的状态 dp[i][j] 应该是 dp[i - 1][j] 和 dp[i][j - 1] 的最大值。
 ```java
     public int longestCommonSubsequence(String text1, String text2) {
         int M = text1.length(), N = text2.length();

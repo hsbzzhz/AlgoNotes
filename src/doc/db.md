@@ -88,5 +88,25 @@ https://blog.csdn.net/roykingw/article/details/126611149
 NIO
 
 
+spring循环依赖
 
+一级缓存中存放完整的bean，这些实例是可以直接使用的
+二级缓存里存储的是，实例化以后，但没有设置属性值的bean实例（也就是说bean里的依赖注入还没做）
+三级缓存里存的是bean工厂，主要用来生成二级缓存中的原始bean对象
+
+假设BeanA 和 BeanB存在循环依赖，
+1. 初始化BeanA，先把BeanA实例化，然后把BeanA包装成 ObjectFactory 对象保存到三级缓存中
+2. 接着BeanA 开始对属性中的 BeanB 进行依赖注入，于是开始初始化BeanB，创建BeanB 工厂对象放入到三级缓存中
+3. 然后BeanB 对属性中的 BeanA进行依赖注入，在三级缓存中找到BeanA，放入二级缓存中，将不完整的BeanA注入到BeanB中，于是完成 BeanA的依赖注入。
+4. BeanB初始化后保存在第一缓存中。BeanA统一拿到BeanN实例，完成初始化。
+
+问题：
+1. 初始化的时候是A对象，而容器中以及注入到B中的都说代理对象，这样会有问题吗？
+不会，代理类内部会持有一个目标类的引用，当调用代理对象方法时，实际上会去调用目标对象方法
+2. 为社么要用三级缓存，而不是二级缓存？
+二级也能解决循环依赖的问题；
+spring中bean设计是：在需要时实例化，singletonFactory.getObject()是获取Bean，就是延迟实例化。
+bean的声明周期是在bean创建完成后，通过后置处理器来完成创建aop代理对象。
+==========
+如果去掉二级缓存，则需要直接在一级缓存中直接创建bean的代理，这样违背了bean的生命周期
 

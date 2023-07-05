@@ -110,3 +110,21 @@ bean的声明周期是在bean创建完成后，通过后置处理器来完成创
 ==========
 如果去掉二级缓存，则需要直接在一级缓存中直接创建bean的代理，这样违背了bean的生命周期
 
+
+Spring IOC 工作流程
+1. IOC容器初始化：解析xml或注解（@Component @Repository @Service）声明类，加载生成 BeanDefinition 实体， 
+   然后把 BeanDefinition 注册到 IOC 容器中（保存在一个map中）。
+2. Bean初始化和依赖注入：
+   对没有设置lazy-init属性的单例bean进行初始化，完成bean的依赖注入（注入property）。
+3. Bean使用：
+   通过@Autowired 或者 BeanFactory.getBean() 从 IOC容器中获取指定的bean实例。
+另外，针对设置lazy-init属性和 非单例的bean，实例化是在每次获取bean对象时，调用bean初始化方法来完成实例化，Spring IOC容器不去管理这些bean
+
+问题： 如果spring中有两个id相同的bean，会发生什么情况？
+1. 在解析转换为 BeanDefinition 的时候，如果发生在同一个xml文件中，会直接报错；如果发生在不通的xml文件中，新的容器会覆盖旧的
+2. 但在Spring3中使用@Configuration 注解去声明一个配置类，然后使用@Bean 注解实现bean的声明，这种方式只会保存第一个实例
+
+问题：@Component 和 @Bean 的区别是什么？
+1. @Component 注解作用于类，而@Bean注解作用于方法
+2. @Component 配合 @ComponentScan使用； @bean 告诉Spring这是某个类的实例
+3. @bean更加灵活，有一些特定场景，比如引用第三方库的中需要装配到spring容器中时

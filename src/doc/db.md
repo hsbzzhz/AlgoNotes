@@ -38,6 +38,9 @@ redis分布式锁
 https://blog.csdn.net/xq_adress/article/details/125474649
 Redis 槽数，使用场景啥的
 
+redis 中阻塞的点
+https://mp.weixin.qq.com/s?__biz=MzIwNjg4MzY4NA==&mid=2247508977&idx=2&sn=b621f8a424320285cad5aab37f244f92&chksm=97183dfaa06fb4ecea2cb611f97f64de1fc72a1fe9fb197d3e1493d07d6798b5edfa4726509a&scene=21#wechat_redirect
+
 ~~sql三大范式 https://blog.csdn.net/yiZzhu/article/details/121616375
 第一范式，每列都是不可分割，比如有个字段叫学校信息，这违背了第一范式
 第二范式，在第一范式的基础上。每列都跟主键相关

@@ -100,7 +100,7 @@ spring循环依赖
 3. 然后BeanB 对属性中的 BeanA进行依赖注入，在三级缓存中找到BeanA，放入二级缓存中，将不完整的BeanA注入到BeanB中，于是完成 BeanA的依赖注入。
 4. BeanB初始化后保存在第一缓存中。BeanA统一拿到BeanN实例，完成初始化。
 
-问题：
+~~问题：
 1. 初始化的时候是A对象，而容器中以及注入到B中的都说代理对象，这样会有问题吗？
 不会，代理类内部会持有一个目标类的引用，当调用代理对象方法时，实际上会去调用目标对象方法
 2. 为社么要用三级缓存，而不是二级缓存？
@@ -108,23 +108,23 @@ spring循环依赖
 spring中bean设计是：在需要时实例化，singletonFactory.getObject()是获取Bean，就是延迟实例化。
 bean的声明周期是在bean创建完成后，通过后置处理器来完成创建aop代理对象。
 ==========
-如果去掉二级缓存，则需要直接在一级缓存中直接创建bean的代理，这样违背了bean的生命周期
+如果去掉二级缓存，则需要直接在一级缓存中直接创建bean的代理，这样违背了bean的生命周期~~
 
 
-Spring IOC 工作流程
+~~Spring IOC 工作流程
 1. IOC容器初始化：解析xml或注解（@Component @Repository @Service）声明类，加载生成 BeanDefinition 实体， 
    然后把 BeanDefinition 注册到 IOC 容器中（保存在一个map中）。
 2. Bean初始化和依赖注入：
    对没有设置lazy-init属性的单例bean进行初始化，完成bean的依赖注入（注入property）。
 3. Bean使用：
    通过@Autowired 或者 BeanFactory.getBean() 从 IOC容器中获取指定的bean实例。
-另外，针对设置lazy-init属性和 非单例的bean，实例化是在每次获取bean对象时，调用bean初始化方法来完成实例化，Spring IOC容器不去管理这些bean
+另外，针对设置lazy-init属性和 非单例的bean，实例化是在每次获取bean对象时，调用bean初始化方法来完成实例化，Spring IOC容器不去管理这些bean~~
 
 问题： 如果spring中有两个id相同的bean，会发生什么情况？
 1. 在解析转换为 BeanDefinition 的时候，如果发生在同一个xml文件中，会直接报错；如果发生在不通的xml文件中，新的容器会覆盖旧的
 2. 但在Spring3中使用@Configuration 注解去声明一个配置类，然后使用@Bean 注解实现bean的声明，这种方式只会保存第一个实例
 
-问题：@Component 和 @Bean 的区别是什么？
+~~问题：@Component 和 @Bean 的区别是什么？
 1. @Component 注解作用于类，而@Bean注解作用于方法
 2. @Component 配合 @ComponentScan使用； @bean 告诉Spring这是某个类的实例
-3. @bean更加灵活，有一些特定场景，比如引用第三方库的中需要装配到spring容器中时
+3. @bean更加灵活，有一些特定场景，比如引用第三方库的中需要装配到spring容器中时~~

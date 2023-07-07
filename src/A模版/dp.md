@@ -128,8 +128,7 @@
     public int rob(int[] nums) {
         int n = nums.length;
         int[] dp = new int[n + 1];
-        // dp[0] 为偷完0个屋子得到到最大收益
-        // dp[1]为偷了第一个屋子的最大收益
+        // 相当于初始化两个状态，不偷第一个屋子dp[0]和偷第一个屋子dp[1]
         dp[0] = 0; dp[1] = nums[0];
         for (int i = 2; i < dp.length; i++) {
             // 前一个屋子偷了，这个就不能偷了；要么前一个屋子没偷，偷这个屋子

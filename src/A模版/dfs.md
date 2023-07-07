@@ -105,7 +105,7 @@ public class Solution {
 }
 ```
 
-### 2. 岛屿相关
+### 2. 岛屿相关（blood fill）
 比如：
 * [岛屿数量](https://leetcode.cn/problems/number-of-islands/) （Easy）
 * [岛屿的周长](https://leetcode.cn/problems/island-perimeter/) （Easy）

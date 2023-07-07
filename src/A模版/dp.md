@@ -194,3 +194,78 @@
         return dp[M][N];
     }
 ```
+
+## 距离编辑
+**例题**[72. 编辑距离](https://leetcode.cn/problems/edit-distance/solution/)
+**题目**：给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数。<br>
+- 你可以对一个单词进行如下三种操作：
+1. 插入一个字符
+2. 删除一个字符
+3. 替换一个字符
+
+
+从后向前算
+
+1. 常规递归计算（超时）
+```java
+int minDistance(String s1, String s2) {
+    int m = s1.length(), n = s2.length();
+    // i，j 初始化指向最后一个索引
+    return dp(s1, m - 1, s2, n - 1);
+}
+
+// 定义：返回 s1[0..i] 和 s2[0..j] 的最小编辑距离
+int dp(String s1, int i, String s2, int j) {
+    // base case
+    // 把剩下没走完的距离加上当前的一步
+    if (i == -1) return j + 1;
+    if (j == -1) return i + 1;
+
+    // 如果匹配就不算步数，只把索引向前移动
+    if (s1.charAt(i) == s2.charAt(j)) {
+        return dp(s1, i - 1, s2, j - 1); // 啥都不做
+    }
+    return min(
+        dp(s1, i, s2, j - 1) + 1,    // 插入， s2相对于s1而言，调换对比主体就是 删除操作
+        dp(s1, i - 1, s2, j) + 1,    // 删除
+        dp(s1, i - 1, s2, j - 1) + 1 // 替换
+    );
+}
+
+int min(int a, int b, int c) {
+return Math.min(a, Math.min(b, c));
+}
+```
+https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/
+https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/
+2. 动归
+   `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
+```java
+    public int minDistance(String word1, String word2) {
+        int m = word1.length(), n = word2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = min(
+                        dp[i - 1][j] + 1, // 插入
+                        dp[i][j - 1] + 1, // 删除
+                        dp[i - 1][j - 1] + 1 // 替换
+                    );
+                }
+
+            }
+        }
+        return dp[m][n];
+    }
+```

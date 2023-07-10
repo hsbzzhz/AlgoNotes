@@ -196,7 +196,7 @@
 ```
 
 ## 距离编辑
-**例题**[72. 编辑距离](https://leetcode.cn/problems/edit-distance/solution/)
+**例题**：[72. 编辑距离](https://leetcode.cn/problems/edit-distance/solution/)
 **题目**：给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数。<br>
 - 你可以对一个单词进行如下三种操作：
 1. 插入一个字符
@@ -206,7 +206,8 @@
 
 从后向前算
 
-1. 常规递归计算（超时）
+1. 常规递归计算（超时）[ref.](https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/
+   )
 ```java
 int minDistance(String s1, String s2) {
     int m = s1.length(), n = s2.length();
@@ -236,10 +237,14 @@ int min(int a, int b, int c) {
 return Math.min(a, Math.min(b, c));
 }
 ```
-https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/
-https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/
-2. 动归
-   `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
+
+2. 动归解法（标准解法）[ref](https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/
+   )
+   - 注意是从最后一个字母开始向前比较（字符串匹配都需要从最后一步比较）
+   - `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
+   - 需要考虑 word1 或 word2 一个字母都没有，预留 `dp[0][j]` 和 `dp[i][0]`
+   - 按顺序计算，当计算 dp[i][j] 时，dp[i - 1][j] ， dp[i][j - 1] ， dp[i - 1][j - 1] 均已经确定了，需要取前三个状态中最小的一个，然后+1
+![img.png](src/distance editor.png)
 ```java
     public int minDistance(String word1, String word2) {
         int m = word1.length(), n = word2.length();

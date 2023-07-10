@@ -175,3 +175,7 @@ antlr
 https://blog.csdn.net/u014454538/article/details/129340412
 https://blog.csdn.net/u014454538/article/details/129477643
 https://blog.csdn.net/u014454538/article/details/129543561
+
+类型识别，如果要做怎么做
+自定义函数策略
+用listener模式，还是visitor模式

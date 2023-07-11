@@ -176,6 +176,11 @@ https://blog.csdn.net/u014454538/article/details/129340412
 https://blog.csdn.net/u014454538/article/details/129477643
 https://blog.csdn.net/u014454538/article/details/129543561
 
-类型识别，如果要做怎么做
-自定义函数策略
-用listener模式，还是visitor模式
+antlr的两种ast遍历模式
+asm 节点为 object，节点能getdatatype，
+计算规则， int < float < double，计算后给返回值赋类型
+
+适配器模式：
+
+责任链模式
+降低了对象建的耦合度，责任最小化，增强了系统的扩展性

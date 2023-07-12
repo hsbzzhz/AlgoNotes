@@ -198,4 +198,14 @@ asm 节点为 object，节点能getdatatype，
 3. 最多支撑3层
 4. 返回数据中，以距离从大到小排序
 
+=== 
+1. 在创建发布dag时候，存储了source 和 sink引用的物理模型
+2. 通过物理模型id查询该表，如果source中的dag则为该物理模型的out dag
+3. 如果sink中的dag则为该物理模型的in dag
+4. 递归查询对应dag中的
+5. 结果应该是从1到3，从小到大输出的
+
+不用遍历到dag，直接遍历这个physical_model_blood_relation_ship表即可
+查询结果分in 和 out，度为1是一个数组，其中包含
+
 使用bfs遍历dag，获取头节点中的物理模型id，获取尾节点中物理模型id

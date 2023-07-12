@@ -180,10 +180,6 @@ antlr的两种ast遍历模式
 asm 节点为 object，节点能getdatatype，
 计算规则， int < float < double，计算后给返回值赋类型
 
-适配器模式：
-
-责任链模式
-降低了对象建的耦合度，责任最小化，增强了系统的扩展性
 
 
 - 获取该物理模型引用的DAG

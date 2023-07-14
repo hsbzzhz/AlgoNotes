@@ -2,7 +2,7 @@ package 常见排序算法;
 
 import java.util.Arrays;
 
-/**
+/**快速排序 https://blog.csdn.net/Alian_1223/article/details/123036590
  * ref. https://blog.csdn.net/weixin_43586713/article/details/119820797
  * 本方法用双指针交互方法
  * 排序过程：

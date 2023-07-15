@@ -119,8 +119,9 @@
 * 单个数组或者字符串需要用动归时， `dp[i]` 定义为 `nums[0:i]` 中每个状态的最好结果
 * 当两个数组或者字符串时，`dp[i][j]` 定义为 `A[0:i]` 和 `B[0:j]` 之间匹配结果
 
+**打家劫舍系列**
 **例题**： [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)<br>
-题目：每间房内都藏有一定的现金（给定数组），不能偷连续两家，返回偷到到最多金额
+**题目**：每间房内都藏有一定的现金（给定数组），不能偷连续两家，返回偷到到最多金额
 
 ![img.png](src/robber.png)
 
@@ -137,7 +138,45 @@
         return dp[n];
     }
 ```
+**股票买卖系列**<br>
+**例题**：买卖股票的最佳时机<br>
+**当不包含手续费等条件时，可以用*贪心*解决** `待完善`
+```java
+    public static int maxProfit_greedy(int[] prices){
+        int minPrice = prices[0], profit =0;
+        for(int i=1; i<prices.length; i++){
+            minPrice = Math.min(minPrice, prices[i]);
+            profit = Math.max(prices[i]-minPrice, profit);
+        }
+        return profit;
+    }
+```
 
+**例题**： [714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)<br>
+**题目**：给定一个整数数组 `prices`，其中 `prices[i]`表示第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。<br>
+**思路**：
+1. `dp[i][0]`代表手里无股票 `dp[i][1]`代表买进，手里有股票
+2. 最后结果应是手里股票卖出
+3. 买卖过程只扣取一次fee，这个fee在买进的时候扣
+```java
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int [][] dp = new int[n][2];
+
+        // base case
+        dp[0][0] = 0; // 开始没买入
+        dp[0][1] = -prices[0] - fee; // 开始去买了股票，也扣了fee
+
+        for(int i=1;i<n;i++){
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]); 
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i] - fee);
+        }
+        return dp[n-1][0];
+    }
+```
+
+
+### 子序列问题 
 ### 首先，区分两个概念：子序列可以是不连续的；子数组（子字符串）需要是连续的
 
 
@@ -171,8 +210,8 @@
 **比如**：s1 = "zabcde", s2 = "acez"，它俩的最长公共子序列是 lcs = "ace"，长度为 3，所以算法返回 3<br>
 [题解参考](https://leetcode.cn/problems/longest-common-subsequence/solution/fu-xue-ming-zhu-er-wei-dong-tai-gui-hua-r5ez6/)
 ### 状态定义
-`dp[i][j]` 表示 text1[0:i-1] 和 text2[0:j-1] 的最长公共子序列。<br>
-`dp[i][j]` 可以初始化为 0。当 i = 0 或者 j = 0 的时候，dp[i][j]表示的为空字符串和另外一个字符串的匹配
+`dp[i][j]` 表示 `text1[0:i-1]` 和 `text2[0:j-1]` 的最长公共子序列。<br>
+`dp[i][j]` 可以初始化为 0。当 i = 0 或者 j = 0 的时候，`dp[i][j]`表示的为空字符串和另外一个字符串的匹配
 ### 状态转移方程
 * 当 `text1[i - 1] == text2[j - 1]` 时，说明两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
 * 当 `text1[i - 1] != text2[j - 1]` 时，说明两个子字符串的最后一位不相等，那么此时的状态 dp[i][j] 应该是 dp[i - 1][j] 和 dp[i][j - 1] 的最大值。
@@ -206,8 +245,7 @@
 
 从后向前算
 
-1. 常规递归计算（超时）[ref.](https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/
-   )
+### [常规递归计算](https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/)（超时）
 ```java
 int minDistance(String s1, String s2) {
     int m = s1.length(), n = s2.length();
@@ -238,8 +276,7 @@ return Math.min(a, Math.min(b, c));
 }
 ```
 
-2. 动归解法（标准解法）[ref](https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/
-   )
+### [动归解法](https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/)（标准解法）
    - 注意是从最后一个字母开始向前比较（字符串匹配都需要从最后一步比较）
    - `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
    - 需要考虑 word1 或 word2 一个字母都没有，预留 `dp[0][j]` 和 `dp[i][0]`

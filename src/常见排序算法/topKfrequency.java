@@ -19,6 +19,7 @@ public class topKfrequency {
             }
         }
         // 遍历map，用最小堆保存前k个频率元素, 堆中存放堆是元素，而不是val
+        // 用到最小堆，队列是从小到大排序，队顶元素为最小元素
         PriorityQueue<Integer> pg = new PriorityQueue<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {

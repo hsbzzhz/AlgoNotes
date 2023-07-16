@@ -1,3 +1,8 @@
+readlist:
+1. https://mp.weixin.qq.com/s?__biz=MzIwNjg4MzY4NA==&mid=2247507941&idx=2&sn=58e7449a3402f15b04e63dc2a2dc339a&chksm=971841eea06fc8f887383661574c3ae4f9cbd5221abf7e14e7640e180e79314a3143b2128848&scene=21#wechat_redirect
+2. https://mp.weixin.qq.com/s?__biz=MzIwNjg4MzY4NA==&mid=2247508928&idx=2&sn=c9bbc75e4d5be8ea23edca7b4a3e70e1&chksm=97183dcba06fb4ddad9b9cf9ef9925febfeb8cfbed205792eea7830c924e1108ed61c149903e&scene=21#wechat_redirect
+3. 
+
 
 Reactive Programming 作为观察者模式（Observer） 的延伸，不同于传统的命令编程方式（ Imperative programming）同步拉取数据的方式，如迭代器模式（Iterator） 。而是采用数据发布者同步或异步地推送到数据流（Data Streams）的方案。当该数据流（Data Steams）订阅者监听到传播变化时，立即作出响应动作。在实现层面上，Reactive Programming 可结合函数式编程简化面向对象语言语法的臃肿性，屏蔽并发实现的复杂细节，提供数据流的有序操作，从而达到提升代码的可读性，以及减少 Bugs 出现的目的。同时，Reactive Programming 结合背压（Backpressure）的技术解决发布端生成数据的速率高于订阅端消费的问题。
 

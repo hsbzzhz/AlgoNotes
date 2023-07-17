@@ -210,3 +210,9 @@ asm 节点为 object，节点能getdatatype，
 查询结果分in 和 out，度为1是一个数组，其中包含
 
 使用bfs遍历dag，获取头节点中的物理模型id，获取尾节点中物理模型id
+
+
+
+1. Junit4 和 Mockito
+2. mysql 和 pg 有什么区别
+3. 

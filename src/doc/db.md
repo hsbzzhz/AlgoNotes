@@ -215,4 +215,28 @@ asm 节点为 object，节点能getdatatype，
 
 1. Junit4 和 Mockito
 2. mysql 和 pg 有什么区别
-3. 
+- mysql
+  - 存储引擎InnoDB提供了行级锁和事务处理能力
+- pg
+  - 使用MVCC处理并发问题
+  - 提供了更细度的RBAC访问控制机制
+  - 提供了更加多的数据类型支持，比如数组，Json，Xml
+- 高斯
+  - 企业级分布式数据库
+
+
+listener模式流程：
+
+bool:1
+char:2
+integer:4
+long:5
+float:6
+double:7
+...
+
+
+class AddGen extends CalculateCodeGen
+    @Override
+    public void grammerCheck() {}
+

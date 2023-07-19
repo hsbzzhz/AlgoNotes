@@ -1,7 +1,9 @@
-
-对规则引擎的升级和二次开发，之前的引擎有基本的计算能力，例如加减乘除等
-主要工作有：
-1. 添加了预制汇聚函数：例如max， sum等
-2. 允许用户添加自定义函数功能，会上传到minio文件系统中。当服务启动时，会使用观察者模式，implement Application Listener <ApplicationReady events> 来给租户初始化规则引擎，将租户下的自定义函数给注册到引擎中（只是个躯壳）
-（其中有涉及flink和bdi引擎类型不同）
-3. 当需要用到计算时，直接去数据库里查到id然后去minio下载jar包进行运行，然后将返回结果回填
+	![img_1.png](img_1.png)
+1. 同源策略怎么解决跨域问题：
+	保证同源：协议，域名，端口都相同
+	目的是：保护用户信息安全，为了防止跨脚本攻击，禁止浏览器通过脚步访问非同源数据
+    受到影响的资源: cookie, dom, ajax请求响应结果会被拦截
+	
+	CORS方案：
+    Html5 新特性， 只需要在服务端在响应头中Access-Control-Allow-Origin: *即可
+    JSON with padding

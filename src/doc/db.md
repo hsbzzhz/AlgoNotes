@@ -240,3 +240,9 @@ class AddGen extends CalculateCodeGen
     @Override
     public void grammerCheck() {}
 
+
+
+: 是 v-bind的缩写，是动态绑定
+- 在el-select 标签上，绑定 disable属性，isOptionDisabled
+- 调用executeMethod('select-disable-by-condition') mixin方法， 算子文件中配的key，找到value，
+- 然后value为 js中创建的函数，其中返回是否 disable

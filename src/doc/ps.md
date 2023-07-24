@@ -1,5 +1,5 @@
 ![img_1.png](img_1.png)
-### [同源策略怎么解决跨域问题](https://blog.csdn.net/weixin_60678263/article/details/127830936)：
+### [同源策略怎么解决跨域问题](https://blog.csdn.net/m0_63070387/article/details/128692886)：
     保证同源：协议，域名，端口都相同 
     目的是：保护用户信息安全，为了防止跨脚本攻击，禁止浏览器通过脚步访问非同源数据 
     受到影响的资源: cookie, dom, ajax**请求响应结果会被拦截**

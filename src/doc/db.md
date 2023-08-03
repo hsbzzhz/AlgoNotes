@@ -97,6 +97,15 @@ Objectres = resTemplate.getForObject(uri, Object.class);
 
 配置微服务datafactory 的 yaml
 
+### serviceComb服务治理方案
+- 在microservice.yaml 配置文件中加入治理策略
+  - 负载均衡：
+  - 限流策略：基于zuul网关实现：限制单位时间内的访问次数
+    - 添加application.yml文件配置
+    - 添加zuul网关启动类
+  - 熔断机制：
+    - 配置请求容量阈值
+    - 如果服务抛出异常，请求多次将不会再直接访问服务，等服务恢复后可再次重新访问
 
 mysql定位解决慢查询
 https://mp.weixin.qq.com/s?__biz=MzI2NzM1OTM4OA==&mid=2247494315&idx=1&sn=22e34f6e9d3a1dd7a8bc922cbbb5aebb&chksm=ea82af58ddf5264e63115092fc927b8eeb6d65ee222172c070aa42fc39450b9188486b1297f4&scene=27

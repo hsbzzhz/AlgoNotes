@@ -17,6 +17,7 @@
    - `tail -f /home/studio/logs/runlog/info.log` 循环读取日志
 6. 日志查询
     - `cat info.log | grep -C 20 metaone`：查询关键字*metaone*前后20行的日志
+    - `grep '2023-08-02 09:' logs_2023_08_02.log`：查询时间开头的日志记录（一般用的比较多）
     - `sed -n '/2019-10-24 22:14:*/,/2019-10-24 22:16:*/p' info.log`：查询info.log中22:14 - 22:16间的日志（只有k8s的log才支持）
     -  `cat -n test.log |grep "debug" >debug.txt`：查询debug关键字的行，并且输出保存文件
 7. 拷贝：

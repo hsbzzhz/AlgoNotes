@@ -15,7 +15,11 @@
 4. 分页查看文件内容：`more desc.txt`
 5. 查看文件尾内容：`tail -100 desc.txt`：查看desc.txt的最后100行内容
    - `tail -f /home/studio/logs/runlog/info.log` 循环读取日志
-6. 拷贝：
+6. 日志查询
+    - `cat info.log | grep -C 20 metaone`：查询关键字*metaone*前后20行的日志
+    - `sed -n '/2019-10-24 22:14:*/,/2019-10-24 22:16:*/p' info.log`：查询info.log中22:14 - 22:16间的日志（只有k8s的log才支持）
+    -  `cat -n test.log |grep "debug" >debug.txt`：查询debug关键字的行，并且输出保存文件
+7. 拷贝：
     - `cp desc.txt /mnt/`：拷贝desc.txt到/mnt目录下
     - `cp -r test /mnt/`：拷贝test目录到/mnt目录下（-r循环目录拷贝）
 7. 剪切（改名）：

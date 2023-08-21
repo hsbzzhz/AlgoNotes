@@ -1,7 +1,7 @@
 # 深度优先
 我们所熟悉的 DFS（深度优先搜索）问题通常是在树或者图结构上进行的
 
-### 1. 回溯问题
+## 1. 回溯问题
 本质是一个brute force算法，是一个决策树的遍历过程
 
 ```python
@@ -105,7 +105,7 @@ public class Solution {
 }
 ```
 
-### 2. 岛屿相关（blood fill）
+## 2. 岛屿相关（blood fill）
 比如：
 * [岛屿数量](https://leetcode.cn/problems/number-of-islands/) （Easy）
 * [岛屿的周长](https://leetcode.cn/problems/island-perimeter/) （Easy）
@@ -150,7 +150,7 @@ class IslandTemplate {
 ```
 [ref1.](https://leetcode.cn/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/)
 [ref2.](https://labuladong.gitee.io/algo/4/31/107/)
-### 3. 树
+## 3. 树
 
 前序遍历：
 ```java

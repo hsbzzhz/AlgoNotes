@@ -72,18 +72,19 @@ c = null; // 手动释放闭包对象
   * 原生JS中的setTimeout（作用是能够延迟一段时间后执行指定的函数）
     * 传递的第一个函数不能带参数，通过闭包可以实现传参效果
   * 连续触发事件n次，但在一定时间内只执行1次：=>实现**节流**和**防抖**
+    * 防抖应用于**动态搜索框**，防止多次查询
     ```javascript
     export function throttle(func, wait) {
     // 传2个参数，一个是回调函数，一个是间隔时间
-          let timerId;
-          return function (...args) {
-             if (!timerId) {
-                 timerId = setTimeout(() => {
-                     timerId = null;
-                     func.apply(this, args);
-                 }, wait);
-             }
+       let timerId;
+       return function (...args) {
+          if (!timerId) {
+              timerId = setTimeout(() => {
+                  timerId = null;
+                  func.apply(this, args);
+              }, wait);
           }
+       }
     }
     ```
   * 创建特权方法用于访问控制

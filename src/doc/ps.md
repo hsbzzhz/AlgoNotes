@@ -4,7 +4,7 @@
     目的是：保护用户信息安全，为了防止跨脚本攻击，禁止**浏览器**通过脚步访问非同源数据 
     会带来跨域问题: 阻止一个域的javascript和另一个域的内容进行互通--- cookie, dom, ajax**请求响应结果会被拦截**
     解决方法：
-1. CORS 后端设置
+1. CORS 后端设置<br>
    ![img.png](src/cors.png)
    - 当浏览器在进行跨域请求时，会在请求头中添加`origin`表明发送者的源（前端地址）
    - 当服务器接收到请求，并查看origin头部时，如果设置过允许访问，就**添加到Access-Control-Allow-Origin到响应头中**
@@ -28,8 +28,8 @@
         type="text/javascript">
     </script>
     ```
-3. 代理
-4. ![img.png](src/proxy.png)
+3. 代理<br>
+ ![img.png](src/proxy.png)
    - 配置一个和前端同源的代理服务器，然后通过代理服务器去请求后端数据，然后返回
    - 相当于浏览器只跟前端服务器和前端代理服务器打交道
    - 在vue3中配置 vue.config.js
@@ -148,6 +148,18 @@ c = null; // 手动释放闭包对象
 ### [js的常见问题](https://blog.csdn.net/Jueyue15/article/details/120155179)
 * js是一个单线程执行语言，其中任务分为同步任务和异步任务
 * dom是文件对象模型，浏览器会结构会html文件，解析为一系列的节点
+### vue中css动态绑定
+- 通过class对象或数组
+  ```html
+  <div v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+  ```
+- 通过style语法
+   ```html
+   <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+   ```
+### computed 和 watch 区别
+- computed：是计算属性，依赖其它属性值，并且 computed 的值有缓存，只有它依赖的属性值发生改变，下一次获取 computed 的值时才会重新计算 computed 的值；
+- watch：更多的是「观察」的作用，类似于某些数据的监听回调 ，每当监听的数据变化时都会执行回调进行后续操作；
 ### vue2到vue3更新
 - 选项式 -> 组合式
   - 选项式：代码分不同属性data、computed、methods等

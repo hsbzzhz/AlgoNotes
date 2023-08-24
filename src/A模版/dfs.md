@@ -105,6 +105,60 @@ public class Solution {
 }
 ```
 
+**例题3**：[79. 单词搜索](https://leetcode.cn/problems/word-search/description/)
+**题目**：给定一个m * n二维字符网格board和一个字符串单词word，求word是否在网格中（同一个位置的字母，不可用被重复用）
+**思路**：
+    1. 回溯
+    2. 需要对每个格子作为起点进行计算
+    3. 递归结束条件是，word全遍历完
+```java
+public class Solution {
+    public boolean exist(char[][] board, String word) {
+        char[] words = word.toCharArray();
+        // 不允许往回算，所以需要一个visited 数组
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (dfs(board, visited, words, i, j, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(char[][] board, boolean[][] visited, char[] word, int x, int y, int index) {
+        /*
+         * index: 为在word上的游标
+         */
+        if (x >= board.length || x < 0 || y >= board[0].length || y < 0) {
+            return false;
+        }
+
+        if (visited[x][y]) {
+            return false;
+        }
+
+        if (board[x][y] != word[index]) {
+            return false;
+        }
+
+        if (index == word.length - 1) {
+            return true;
+        }
+
+        int[][] directions = {{0,1}, {1,0},{-1,0},{0,-1}};
+        visited[x][y] = true;
+        for (int[] each : directions) {
+            if (dfs(board, visited, word, each[0] + x, each[1] + y, index + 1)) {
+                // 如果递归中有正确解，即可直接返回
+                return true;
+            }
+        }
+        visited[x][y] = false;
+        return false;
+    }
+}
+```
+
 ## 2. 岛屿相关（blood fill）
 比如：
 * [岛屿数量](https://leetcode.cn/problems/number-of-islands/) （Easy）

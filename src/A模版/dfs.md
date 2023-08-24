@@ -50,7 +50,7 @@ public class 求子集 {
     }
 }
 ```
-**例题2：[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)**<br>
+**例题2**：[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)<br>
 示例 1：
 输入：digits = "23" <br>
 输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
@@ -105,12 +105,16 @@ public class Solution {
 }
 ```
 
-**例题3**：[79. 单词搜索](https://leetcode.cn/problems/word-search/description/)
-**题目**：给定一个m * n二维字符网格board和一个字符串单词word，求word是否在网格中（同一个位置的字母，不可用被重复用）
+**例题3**：[79. 单词搜索](https://leetcode.cn/problems/word-search/description/)<br>
+**题目**：给定一个m * n二维字符网格board和一个字符串单词word，求word是否在网格中（同一个位置的字母，不可用被重复用）<br>
+**示例**：
+
+![img.png](src/wordsearch.png)
+
 **思路**：
-    1. 回溯
-    2. 需要对每个格子作为起点进行计算
-    3. 递归结束条件是，word全遍历完
+1. 回溯
+2. 需要对每个格子作为起点进行计算
+3. 递归结束条件是，word全遍历完
 ```java
 public class Solution {
     public boolean exist(char[][] board, String word) {
@@ -222,9 +226,10 @@ class BFS {
 ```
 
 
-**例题3 [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)**
+**例题3** [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/)
 
-![](src/right-view-tree.jpeg)
+**思路**：
+1.
 ```java
 public class Solution {
 
@@ -261,8 +266,8 @@ public class Solution {
 }    
 ```
 
-**例题4**：[剑指 Offer 26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)
-**题目**：输入两棵二叉树A和B，判断树B是不是A的子结构，返回一个boolean结果
+**例题4**：[剑指 Offer 26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)<br>
+**题目**：输入两棵二叉树A和B，判断树B是不是A的子结构，返回一个boolean结果<br>
 **思路**：
 1. 先序遍历树A中的每个节点An是否包含B树（isSubStructure），对每个A节点都去和B树做比较
 2. 判断以An节点开始是否和B树重合（recur）：分别匹配两个树的左右节点

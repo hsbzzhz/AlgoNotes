@@ -206,3 +206,37 @@ public class Solution {
     }
 }    
 ```
+
+**例题4**：[剑指 Offer 26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)
+**题目**：输入两棵二叉树A和B，判断树B是不是A的子结构，返回一个boolean结果
+**思路**：
+1. 先序遍历树A中的每个节点An是否包含B树（isSubStructure），对每个A节点都去和B树做比较
+2. 判断以An节点开始是否和B树重合（recur）：分别匹配两个树的左右节点
+```java
+class Solution {
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        if (A == null || B == null) {
+            return false;
+        }
+        if (recur(A, B)) {
+            return true;
+        }
+        return isSubStructure(A.left, B) || isSubStructure(A.right, B);
+    }
+
+    public boolean recur(TreeNode A, TreeNode B) {
+        if (B == null) {
+            return true;
+        }
+        if (A == null) {
+            return false;
+        }
+        if (A.val != B.val) {
+            return false;
+        }
+
+        return recur(A.left, B.left) && recur(A.right, B.right);
+    }
+}
+```
+

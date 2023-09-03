@@ -38,9 +38,11 @@ public class ListNode {
 ```
 
 ### [反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)
-**题目**： 就是给定左右位置，翻转[left,right]之间的节点<br>
+**题目**： 就是给定左右位置，翻转`[left,right]`之间的节点<br>
 ![img.png](src/reverse_node.png)
-**题解**：<br>
+
+**题解**：
+
 ![img.png](src/reverse_node2.png)
 - cur遍历后为 reverseNext 节点
 ```java
@@ -53,9 +55,9 @@ public class ListNode {
         }
 
         //  从此节点开始反转 区间[left, right]的节点
-        ListNode reverseHead = reversePre.next;
-        ListNode prev = null; //拟定翻转后的头节点
-        ListNode cur = reverseHead;
+        ListNode reverseHead = reversePre.next; // reverseHead为反转区间后tail节点
+        ListNode prev = null; //拟定反转后的头节点
+        ListNode cur = reverseHead; // cur 节点就是反转后的reverseNext节点
         for (int i = left; i <= right; i++) {
             ListNode next = cur.next;
             cur.next = prev;

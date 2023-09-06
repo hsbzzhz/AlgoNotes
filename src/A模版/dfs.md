@@ -16,6 +16,54 @@ def backtrack(start, 路径, 选择列表):
         backtrack(i + 1, 路径, 选择列表)  ## step3.
         撤销选择
 ```
+**列题0**：[全排列](https://leetcode.cn/problems/permutations/)<br>
+**输入**：nums = [1,2,3]<br>
+**输出**: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+```java
+public class 回溯 {
+    List<List<Integer>> res = new ArrayList<>();
+
+    /* 主函数，输入一组不重复的数字，返回它们的全排列 */
+    List<List<Integer>> permute(int[] nums) {
+        // 记录「路径」
+        ArrayList<Integer> track = new ArrayList<>();
+        // 「路径」中的元素会被标记为 true，避免重复使用
+        boolean[] used = new boolean[nums.length];
+        // 直接调用 dfs
+        backtrack(nums, track, used);
+
+        return res;
+    }
+
+    // 路径：记录在 track 中
+    // 选择列表：nums 中不存在于 track 的那些元素（used[i] 为 false）
+    // 结束条件：nums 中的元素全都在 track 中出现
+    void backtrack(int[] nums, ArrayList<Integer> track, boolean[] used) {
+        // 触发结束条件
+        if (track.size() == nums.length) {
+            res.add(new ArrayList(track));
+            return; // 不写此 return会栈溢出
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            // 排除不合法的选择
+            if (used[i]) {
+                // nums[i] 已经在 track 中，跳过
+                continue;
+            }
+            // 做选择
+            track.add(nums[i]);
+            used[i] = true;
+            // 进入下一层决策树
+            backtrack(nums, track, used);
+            // 取消选择
+            track.remove(track.size()-1);
+            used[i] = false;
+        }
+    }
+}
+```
 
 **例题1：[求子集](https://labuladong.gitee.io/algo/1/7/)**<br>
 输入：nums = [1,2,3]<br>

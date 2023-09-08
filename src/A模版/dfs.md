@@ -347,3 +347,56 @@ class Solution {
 }
 ```
 
+
+**例题5**：[剑指 Offer 07. 重建二叉树](https://leetcode.cn/problems/zhong-jian-er-cha-shu-lcof/)<br>
+**题目**：输入某二叉树的前序遍历和中序遍历的结果`数组`，请构建该二叉树并返回其根节点。<br>
+**前提条件**：树中没有重复的数字！
+**思路**：
+- 分治的思想
+- 比如`preorder = [3,9,20,15,7]`，`inorder = [9,3,15,20,7]`
+- 可以推断得出 `3` 是这个树的根节点，在inorder中，`3` 左边是左子树，右边为右子树
+- 这样递归可以求得整个树
+- 左右子树构建：
+
+|     | preorder根节点      | inorder左边界      | inorder右边界      |
+|-----|------------------|-----------------|-----------------|
+| 左子树 | root + 1         | left            | in_root_idx - 1 |
+| 右子树 | root + 1 + 左子树长度 | in_root_idx + 1 | right           |
+
+
+```java
+public class Solution {
+    Map<Integer, Integer> map = new HashMap<>();  // 标记 inorder
+
+    int[] preOrder;
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        this.preOrder = preorder;
+
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+
+        return recur(0, 0, inorder.length - 1);
+    }
+
+    public TreeNode recur(int pre_root_idx, int in_left_idx, int in_right_idx) {
+        /*
+         * 
+         */
+        if (in_left_idx > in_right_idx) // 相等的话就是自己
+            return null;
+
+        TreeNode root = new TreeNode(this.preOrder[pre_root_idx]); // 初始化root
+
+        int in_root_idx = map.get(this.preOrder[pre_root_idx]); // 根节点在inorder中的index
+
+        // 左子树根节点：根节点向右 + 1
+        root.left = recur(pre_root_idx + 1, in_left_idx, in_root_idx - 1);
+        // 右子树根节点：根节点向右 + 1 + 左子树长度（中序中，左边界到根节点的距离）
+        root.right = recur(pre_root_idx + 1 + (in_root_idx - in_left_idx), in_root_idx + 1, in_right_idx);
+
+        return root;
+    }
+}    
+```

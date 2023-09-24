@@ -17,9 +17,9 @@
    - 当服务器接收到请求，并查看origin头部时，如果设置过允许访问，就**添加到Access-Control-Allow-Origin到响应头中**
    - 浏览器通过返回头部，判断是否可以进行跨域请求
    - 在Springboot中使用cors
-     - 在controller上添加@CrossOrigin注解
-     - 配置CorsFilter：配置类，类中明确支持域信息等配置
+     - 在controller上添加@CrossOrigin(origins="http://localhost:8080")注解，指定允许哪些orgins跨域
      - 实现 WebMvcConfigurer 接口，重写adsCorsMappings方法，设置允许跨域
+     - 配置CorsFilter：配置类，类中明确支持域信息等配置
 2. JSONP
    - `<script>`标签允许不同源请求脚本
    - ?后方法提供接口参数，所以只支持GET，不支持POST

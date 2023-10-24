@@ -350,7 +350,7 @@ class Solution {
 
 **例题5**：[剑指 Offer 07. 重建二叉树](https://leetcode.cn/problems/zhong-jian-er-cha-shu-lcof/)<br>
 **题目**：输入某二叉树的前序遍历和中序遍历的结果`数组`，请构建该二叉树并返回其根节点。<br>
-**前提条件**：树中没有重复的数字！
+**前提条件**：树中没有重复的数字！<br>
 **思路**：
 - 分治的思想
 - 比如`preorder = [3,9,20,15,7]`，`inorder = [9,3,15,20,7]`
@@ -399,4 +399,48 @@ public class Solution {
         return root;
     }
 }    
+```
+
+
+**例题6**：[LCR 152. 验证二叉搜索树的后序遍历序列](https://leetcode.cn/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/)<br>
+**题目**：请实现一个函数来判断整数数组 postorder 是否为二叉搜索树（BST）的后序遍历结果。<br>
+**前提知识**
+- bst是左子树<根<右子树
+- 后续遍历：left->right->root顺序，也就是说数组最后一个元素为根节点
+
+**思路**：
+
+**方法一：递归分治**
+- 终止条件：当left >= right，说明子树节点数量<=1，已遍历完所有节点，直接返回true
+- 递归工作
+  - 划分左右子树：数组最后位置为根节点，寻找第一个比根节点大的节点，索引记为m。此时[left,m-1]为左子树，[m,right-1]为右子树
+  - 判断是否为bst：
+    - 左子树区间内，所有节点都应该 < 根节点
+    - 右子树区间内，所有节点都应该 > 根节点
+
+```java
+class Solution {
+    public boolean verifyTreeOrder(int[] postorder) {
+        return dfs(postorder, 0, postorder.length - 1);
+    }
+
+    public boolean dfs(int[] postorder, int left, int right) {
+        if (left >= right) {
+            // 遍历完了整个树
+            return true;
+        }
+        int p = left;
+        while (postorder[p] < postorder[right]) {
+            // 判断左子树，左子树中的每个节点都小于根节点
+            p++;
+        }
+        int m = p; // 保留当前左子树边界
+        while (postorder[p] > postorder[right]) {
+            // 判断右子树，右子树中的每个节点都大于根节点
+            p++;
+        }
+        // p == right 说明已经遍历完成
+        return p == right && dfs(postorder, left, m - 1) && dfs(postorder, m, right - 1);
+    }
+}
 ```

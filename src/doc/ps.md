@@ -197,3 +197,4 @@ c = null; // 手动释放闭包对象
   2. myrules中定义校验规则，message 和 trigger: blur 在表单失焦时触发
   3. 在rules中自定义validator函数，校验通过直接返回callback()函数空，否在callback(new Error('核验不通过'))
 
+https://blog.csdn.net/weixin_39724194/article/details/107570987

@@ -118,8 +118,7 @@ c = null; // 手动释放闭包对象
 
 ## vue
 ### [js的常见问题](https://blog.csdn.net/Jueyue15/article/details/120155179)
-* js是一个单线程执行语言，其中任务分为同步任务和异步任务
-* dom是文件对象模型，浏览器会结构会html文件，解析为一系列的节点
+
 ### vue中css动态绑定
 - 通过class对象或数组
   ```html

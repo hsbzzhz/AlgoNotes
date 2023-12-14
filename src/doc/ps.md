@@ -197,3 +197,4 @@ c = null; // 手动释放闭包对象
   3. 在rules中自定义validator函数，校验通过直接返回callback()函数空，否在callback(new Error('核验不通过'))
  
   [https://github.com/influxdata/chronograf/issues/5607](https://blog.csdn.net/qq_44406232/article/details/131223041)https://blog.csdn.net/qq_44406232/article/details/131223041
+  https://zhuanlan.zhihu.com/p/459827627

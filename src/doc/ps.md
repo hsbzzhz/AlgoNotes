@@ -198,3 +198,8 @@ c = null; // 手动释放闭包对象
  
   [https://github.com/influxdata/chronograf/issues/5607](https://blog.csdn.net/qq_44406232/article/details/131223041)https://blog.csdn.net/qq_44406232/article/details/131223041
   https://zhuanlan.zhihu.com/p/459827627
+
+1. could you pls talk about the daily job for this role?
+2. what's the typical career path for someone in this role at your company?
+3. What's professional development opportunities ara available for this position?
+4. what's the structure of the team/department?

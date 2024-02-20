@@ -1,1 +1,47 @@
+kafka的rebalance机制[https://blog.csdn.net/qq_40322236/article/details/127790580]
+触发时机：
+1. 消费者组消费的分区个数发生变化
+2. 消费者组消费的主体个数发生变化
+3. 消费者组内的消费者个数发生变化
+执行流程：
+每个broker都会有个协调者（Coordinator），当协调者发现某个消费者长期没有发送心跳，协调者会任务这个消费者挂了，把这个消费者从消费组中踢出，
+然后在其他消费者的心跳请求中回复rebalance_need，让每个消费者停止消息消费，并开启rebalance。
+当每个消费者收到rebalance_need，都会停止消息消费，并向协调者发送SyncGroup请求，来询问分配给自己的分区信息
+分区策略：
+range，按照范围分配
+roundRobin，轮询指配
+stickyAssignor，仅可能保留之前的分配方案
+rebalance产生的影响：
+（1）影响消费效率，因为会中断所有消费者
+（2）可能会产生重复消费，
+减少rebalance产生
+（1）timeout.ms超时时间
+如果协调者在最长等待消费者时间内接收到某个消费者的心跳请求，就会任务该消费者挂了，然后触发rebalance。
+【所以】需要设置成session.timeout.ms >= 3 * heartbeat.interval.ms，
+（2）max.poll.interval.ms 消费者用poll方法主动拉取消息
+消费者调用poll方法的时间间隔，如果实际时间间隔大于该参数，系统会认为该consumer不健康（消息处理效率低），
+会让该消费者主动向协调者发送 leaveGroup请求，然后触发rebalance。
+【所以】需要将此参数设置的长一点
 
+
+
+[https://blog.csdn.net/qq_40322236/article/details/127254744]
+什么是AQS（Abstract Queued Synchronizer）是一个抽象队列同步器，通过维护一个共享资源状态（Volatile Int State）和一个FIFO的线程队列来实现一个多线程
+访问共享资源的同步框架
+
+许多场景同步类的实现都依赖AQS，比如ReentrantLock、Semaphore、CountDownLatch。
+ReentrantLock对AQS的独占方式实现为：ReentrantLock中的state初始值为0表示无锁状态。在线程执行 tryAcquire()获取该锁后ReentrantLock中的state+1，这时该线程独占ReentrantLock锁，其他线程在通过tryAcquire() 获取锁时均会失败，直到该线程释放锁后state再次为0，
+其他线程才有机会获取该锁。该线程在释放锁之前可以重复获取此锁，每获取一次便会执行一次state+1, 因此ReentrantLock也属于可重入锁。 
+但获取多少次锁就要释放多少次锁，这样才能保证state最终为0。如果获取锁的次数多于释放锁的次数，则会出现该线程一直持有该锁的情况；如果获取锁的次数少于释放锁的次数，则运行中的程序会报锁异常。
+
+CountDownLatch对AQS的共享方式实现为：CountDownLatch 将任务分为N个子线程去执行，将 state 初始化为 N, 
+N与线程的个数一致，N个子线程是井行执行的，每个子线程都在执行完成后 countDown()1次， state 执行 CAS 操作并减1。
+在所有子线程都执行完成(state=O)时会unpark()主线程，然后主线程会从 await()返回，继续执行后续的动作。
+CountDownLatch的应用场景非常广泛，包括等待多个线程执行完毕、控制线程的执行顺序、等待外部事件的发生、控制并发线程数等。
+【例子】多线程并发读取多个模型文件，统一读完后进行合并/统计操作，需要用到countdownlatch来实现
+
+
+IOC控制反转：使用对象时，由主动new产生对象，转换为由外部（IOC）提供对象，此过程中对象的创建控制权由程序转译到外部，这种思想就叫控制反转。
+能够有效解耦
+AOP面向切面：在不改动原先设计的基础上为其功能增强，这就是spring理念：无侵入式编程。能够有效的解耦
+springAOP的核心式采用代理模式实现的，

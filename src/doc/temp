@@ -1,1 +1,15 @@
 
+is about how I build the IOT dataflow,
+
+the dataflow is that , cal features and raw features
+when I tried get cal features I found cal data wasn't sync from the raw data, or there is a delay for cal data, at least 2min delay
+in some cases, the pump status showed off, but some cal features under this pump are still running.
+
+the reason is that using cron job to calculate some features in each 1min for the old dataflow architecture.
+the cal features were always later than the raw features, and when the system query data from db, 
+so I identify the root cause is the fixed running time for cron job,
+
+I seeking some real-time data processing solutions (read some relevant article and did some demos), and I shared these solutions during sprint meeting and discuss with other colleagues,
+and under their help, I choose Flink and redis to redesign our dataflow architure finally.
+
+solve the problem, all status and cal are sync, and boost the efficiency

@@ -1,9 +1,9 @@
 
 is about how I build the IOT dataflow,
 
-the dataflow is that , cal features and raw features
+the dataflow is that , calculated features and raw features [介绍一下背景]
 when I tried get cal features I found cal data wasn't sync from the raw data, or there is a delay for cal data, at least 2min delay
-in some cases, the pump status showed off, but some cal features under this pump are still running.
+in some cases, the pump status showed off (turned off), but based on some cal features's data under this pump are still running.
 
 the reason is that using cron job to calculate some features in each 1min for the old dataflow architecture.
 the cal features were always later than the raw features, and when the system query data from db, 
@@ -13,3 +13,37 @@ I seeking some real-time data processing solutions (read some relevant article a
 and under their help, I choose Flink and redis to redesign our dataflow architure finally.
 
 solve the problem, all status and cal are sync, and boost the efficiency
+
+
+
+负载均衡：它的原理是将请求分发到多个服务器上，以提高系统的并发处理能力。它可以使用硬件负载均衡器，也可以使用软件负载均衡器，比如 Nginx、HAProxy 等。负载均衡可以提高系统的可用性和扩展性，但也会增加网络延迟和复杂度。
+
+缓存：它的原理是将经常访问的数据存储在缓存中，以减少数据库的负载。缓存可以使用内存缓存，也可以使用磁盘缓存，比如 Redis、Memcached 等。缓存可以提高系统的响应速度和性能，但也会面临数据一致性和过期的问题。
+
+消息队列：它的原理是将请求异步处理，以提高系统的响应速度。消息队列可以使用开源的中间件，比如 RabbitMQ、Kafka 等。消息队列可以解耦系统的各个组件，但也会增加系统的复杂度和延迟。
+比如生成离线报表
+
+分布式锁：它的原理是在分布式系统中，实现对共享资源的互斥访问。分布式锁可以使用数据库、缓存、Zookeeper 等来实现。分布式锁可以保证数据的一致性和安全性，但也会面临锁超时、死锁等问题。
+
+数据分片：它的原理是将数据分布到多个数据库中，以提高数据库的查询性能。数据分片可以使用水平分片和垂直分片，水平分片是将数据按照一定的规则分割到不同的表或数据库中，垂直分片是将数据按照不同的列分割到不同的表中。
+数据分片可以提高数据库的扩展性和性能，但也会面临数据迁移、跨分片查询等问题。
+
+springboot中常用注解[https://mp.weixin.qq.com/s?__biz=MzI5NTYwNDQxNA==&mid=2247497337&idx=1&sn=b44bc6fd764ceb60f85a58f68508b13f&chksm=ec53afa8db2426be63dc264452d5e24998891ac50d33d9c885fd3b35865b2d75e13ae5f5921a&scene=27]
+@RequestMapping
+用途是将Web请求与请求处理类中的方法进行映射，在使用该注解前，需要用@Controller或@RestController进行标记
+@RequestBody
+在处理请求方法的参数列表中使用，它可以将请求主体中的参数帮到到一个对象中，主体参数是通过HttpMessageConverter传递的，还可以通过@Valid注解对请求主体中的参数进行校验
+@GetMapping
+注解用于处理HTTP GEt请求
+@ControllerAdvice 全局异常处理
+配合@ExceptionHandler 处理异常，此外如有必要可以使用@InitBinder在类中进行全局的配置，还可以使用@ModelAttribute配置与视图相关的参数
+是@Component注解的延伸注解，Spring会自动扫描@ControllerAdvice注解
+@ExceptionHandler
+@ExceptionHander注解用于标注处理特定类型异常类所抛出异常的方法。当控制器中的方法抛出异常时，Spring会自动捕获异常，并将捕获的异常信息传递给被@ExceptionHandler标注的方法
+
+@ResponseStatus
+@ResponseStatus注解可以标注请求处理方法。使用此注解，可以指定响应所需要的HTTP STATUS。特别地，我们可以使用HttpStauts类对该注解的value属性进行赋值。
+
+@PathVariable
+@PathVariable注解是将方法中的参数绑定到请求URI中的模板变量上。可以通过@RequestMapping注解来指定URI的模板变量，然后使用@PathVariable注解将方法中的参数绑定到模板变量上。
+特别地，@PathVariable注解允许我们使用value或name属性来给参数取一个别名。下面是使用此注解

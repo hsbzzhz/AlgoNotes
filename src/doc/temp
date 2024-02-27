@@ -2,3 +2,42 @@
 redis数据类型 https://blog.csdn.net/qq_45076180/article/details/109458668
 
 https://blog.csdn.net/sinat_32873711/article/details/129848895
+
+同时使用xa和tcc？或者分别两种使用场景是什么
+
+
+3PC存在问题：针对阻塞问题进行改进，2pc存在问题是当协调者发生故障，参与者会一直阻塞到协调者恢复。
+1. 再参与者和协调者处都引入超时机制
+2. 加入CanCommit阶段( CanCommit、PreCommit和doCommit)
+3. 整体流程更长了，性能下降
+
+
+
+
+只要try成功，confirm一定成功。若confirm阶段出错了，需引入重试机制或人工处理。cancel阶段是在业务执行错误需要回滚的状态下执行分事务的业务取消。
+
+tcc异常处理
+空回滚：当一个分支事务所在服务器宕机或网络异常，分支事务调用记录为失败，这时
+在没有调用TCC资源Try方法的情况下，调用了第二阶段的Cancel方法，形成了空回滚。
+解决方案：额外增加一张分事务记录表，记录全局事务id和分事务id，在try方法中插入记录，表示第一阶段执行了。cancel接口中读取该记录，如果存在记录，正常回滚；不存在，则是空回滚。
+
+幂等：要保证TCC二阶段提交重试机制不会引发数据不一致，需要TCC的二阶段接口保证幂等，这样就不会重复使用或者释放资源。
+解决方案：在分支事务记录中增加执行状态，每次执行前都查询该状态。
+
+悬挂：RPC调用分支事务时，如果RPC调用发生网络堵塞，触发RPC超时机制，TM就会通知RM回滚该分布式业务，回滚完成后，RPC调用开始执行try中的预留业务，但此时无法处理业务资源产生悬挂
+解决方案：如果第二阶段执行完成，就不能再继续执行该事务了，在《分支事务记录》中查看是否有第二阶段记录。
+
+可靠消息最终一致性方案[https://blog.csdn.net/Pastxu/article/details/115731491?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-115731491-blog-130501345.235^v43^pc_blog_bottom_relevance_base4&spm=1001.2101.3001.4242.2&utm_relevant_index=4]
+
+rocketmq半消息
+[https://mp.weixin.qq.com/s?__biz=MjM5NTY1MjY0MQ==&mid=2650860292&idx=3&sn=21be1aef473c4ceb1f2b00116fd4f671&chksm=bd017e4a8a76f75c89aea1b820f6e76071406c9e3cdd7c61cad99c92d6a59baff1daaf751d38&scene=27]
+[https://blog.csdn.net/weixin_44606481/article/details/129903032]
+
+数据血缘
+传统数仓元数据来源复杂， 比如数据库（Mysql、Hive），数据存储（HDFS、OSS），消息中间件（Kafka、RocketMQ）
+
+元数据构建：查询方法不限于：RestAPI，JDBC，sql采集和词法分析
+数据血缘服务：查询当前节点的上游节点和下游节点，跟踪记录数据的产生、转换和消费过程，分析血缘关系，驱动数据业务。
+
+kafka
+消息重复[https://blog.csdn.net/weixin_45574582/article/details/130608631]

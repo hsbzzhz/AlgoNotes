@@ -29,9 +29,17 @@ tcc异常处理
 
 可靠消息最终一致性方案[https://blog.csdn.net/Pastxu/article/details/115731491?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-115731491-blog-130501345.235^v43^pc_blog_bottom_relevance_base4&spm=1001.2101.3001.4242.2&utm_relevant_index=4]
 
-rocketmq半消息
+RocketMQ半消息（2PC）
 [https://mp.weixin.qq.com/s?__biz=MjM5NTY1MjY0MQ==&mid=2650860292&idx=3&sn=21be1aef473c4ceb1f2b00116fd4f671&chksm=bd017e4a8a76f75c89aea1b820f6e76071406c9e3cdd7c61cad99c92d6a59baff1daaf751d38&scene=27]
 [https://blog.csdn.net/weixin_44606481/article/details/129903032]
+1. A系统在执行本地事务前发送一个prepared消息到mq（prepared的topic是不可见的），如果这个prepared消息发送失败久取消后续操作
+2. 如果这个消息发送成功，就继续执行本地事务，如果成功通知mq发送确认信息，如果失败就本地回滚并通知mq删除prepared消息
+3. A系统发送了确认消息后，B系统会通过Topic收到确认消息，然后开始执行本地事务
+4. 期间mq会定时论文所有prepared消息回调服务接口，查询本地事务处理结果。此步骤目的是避免本地事务执行成功，但确认消息缺发送失败
+   1. 需要设计一张Transaction表，和业务表绑定，方便RocketMQ回查
+5. 如果B系统中本地事务执行失败，首先会尝试重试，如遇失败需要通知A系统回滚（这里具体操作）
+   1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
+
 
 数据血缘
 传统数仓元数据来源复杂， 比如数据库（Mysql、Hive），数据存储（HDFS、OSS），消息中间件（Kafka、RocketMQ）

@@ -4,7 +4,7 @@ redis数据类型 https://blog.csdn.net/qq_45076180/article/details/109458668
 https://blog.csdn.net/sinat_32873711/article/details/129848895
 
 同时使用xa和tcc？或者分别两种使用场景是什么
-
+xa[https://juejin.cn/post/7116916308825866254]
 
 3PC存在问题：针对阻塞问题进行改进，2pc存在问题是当协调者发生故障，参与者会一直阻塞到协调者恢复。
 1. 再参与者和协调者处都引入超时机制

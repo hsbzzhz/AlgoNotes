@@ -49,7 +49,8 @@ class Template {
             return res;
         }
         while (!queue.isEmpty()) {
-            // 记录每层的元素格式
+            // 记录每层的元素格式，如果需要记录每层结构
+            // List<Integer> level = new ArrayList<>();
             int levelSize = queue.size();
             // 逐个遍历，当遍历到最后一个元素时，则为最右元素
             for (int i = 0; i < levelSize; i++) {
@@ -64,6 +65,8 @@ class Template {
                     queue.add(cur.right);
                 }
             }
+            // 将每一层的结果添加到最终的结果中
+            // result.add(level);
         }
         return res;
     }

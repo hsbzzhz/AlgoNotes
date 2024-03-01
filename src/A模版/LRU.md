@@ -14,7 +14,9 @@
 
 ```java
 public class LRUCache {
-    int cap; // 表示这个cache 支持多大
+    // 表示这个cache 支持多大
+    int cap;
+    // LinkedHashMap是根据插入顺序排序的Map
     LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
 
     public LRUCache(int capacity){

@@ -1,5 +1,5 @@
 
-### [反转链表](https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/)
+### [反转链表]([https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/](https://leetcode.cn/problems/reverse-linked-list/solutions/2361282/206-fan-zhuan-lian-biao-shuang-zhi-zhen-r1jel/))
 - 递归
   - 需要将每次结果给 newHead
 - 迭代
@@ -12,7 +12,7 @@
 ```java
 public class ListNode {
     public ListNode reverseList0(ListNode head){
-        // 1. 递归
+        // 【1】. 递归
         if(head == null || head.next == null) {
             return head;
         }
@@ -23,16 +23,17 @@ public class ListNode {
     }
 
     public ListNode reverseList1(ListNode head){
-        // 2. 迭代，首尾双指针
+        // 【2】. 迭代，首尾双指针
+        // prev是新指针的头，也是每次迭代的前置节点
         ListNode cur = head, prev = null;
 
-        while (cur != null) {
-            ListNode next = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = next;
+        while (cur != null) { // 遍历整个链表
+            ListNode temp = cur.next; // 暂存后继节点（每次计算从cur和temp处断开）
+            cur.next = prev; // 修改cur指向（cur指向temp）
+            prev = cur; // cur节点反转完毕，更新prev节点
+            cur = temp; // 移动到下一个节点
         }
-        return prev; // 这里返回对是 自定义prev节点
+        return prev;
     }
 }
 ```
@@ -59,10 +60,10 @@ public class ListNode {
         ListNode prev = null; //拟定反转后的头节点
         ListNode cur = reverseHead; // cur 节点就是反转后的reverseNext节点
         for (int i = left; i <= right; i++) {
-            ListNode next = cur.next;
+            ListNode temp = cur.next;
             cur.next = prev;
             prev = cur;
-            cur = next;
+            cur = temp;
         }
         // 拼接
         reversePre.next = prev;

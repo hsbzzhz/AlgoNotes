@@ -1,4 +1,5 @@
 ## 背包问题
+### 0-1背包问题
 有一个可装重量为`W`的背包和`N`个物体，其中第`i`个物品的重量为`wt[i]`，价值为`val[i]`，现在用这个背包装物品，最多能装的价值是多少？
 
 ```java
@@ -24,7 +25,71 @@
         return dp[N][W];
     }
 ```
+### 完全背包问题
+**每个物品有无限量供应**
+**例题5**：[322. 零钱兑换](https://leetcode.cn/problems/coin-change/description/)<br>
+**题目**：给你 k 种面值的硬币，面值分别为 c1, c2 ... ck，每种的数量无限，再给一个总金额 amount，问你最少需要几枚凑出这个金额，如果不可能凑出，算法返回 -1 。<br>
+**前提条件**：
+**思路**：
 
+
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1]; // 凑到 i 金额需要的最小硬币数目，数组长度+1为了循环正常运行
+
+        Arrays.fill(dp, amount+1); // 填充一个不可能的极大值
+        dp[0] = 0;
+        for (int coin: coins) {
+            for (int i = 0; i <= amount; i++) {
+                if (coin <= i) { // 当前数额>=当前硬币数额，就可以进行计算
+                    // 和amount+1（极大值）对比，有可能coin==3，amount为2，所以需要dp[i]来保证这种异常情况
+                    // 每个coin都会循环计算dp[i]
+                    // i - coin可以确保i能凑到
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1); 
+                }
+            }
+        }
+
+        return (dp[amount] == amount + 1) ? -1: dp[amount]; // 凑不出就是-1，凑得出返回本身
+    }
+}
+```
+
+
+**例题5**：[518. 零钱兑换 II](https://leetcode.cn/problems/coin-change-ii/description/)<br>
+**题目**：给定不同面额的硬币 coins 和一个总金额 amount，写一个函数来计算可以凑成总金额的硬币组合数。<br>
+**前提条件**：
+**思路**：<br>
+按照第i种硬币可以选 0个,1个，2个，3个，，，，k个划分集合 `f[i][j]`。其中`k*coin[i] <= j`，也就是说在背包能装下的情况下，枚举第i种硬币可以选择几个。
+
+- 第i种硬币选 0个，`f[i][j] = f[i-1][j]`
+- 第i种硬币选 1个，`f[i][j] = f[i-1][j - coin]`
+...
+- 第i种硬币选 k个，`f[i][j] = f[i-1][j - k*coin]`
+
+**第 `i` 种硬币为 `coins[i−1]`，第 1 种硬币为` coins[0]`，第 0 种硬币为空**
+
+
+```java
+class Solution {
+    public int change(int[] coins, int amount) {
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1]; // 使用 i 个硬币，凑到 j 金额的组合个数
+        
+        dp[0][0] = 1; //用0种硬币凑到0金额的方法，初始状态
+        for (int i = 1; i <= n; i++) {
+            int coin = coins[i - 1]; // coin序号从0开始算的
+            for (int j = 1; j <= amount; j++) {
+                for (int k = 0; k * coin <= j; k++) {
+                    dp[i][j] += dp[i - 1][j - k*coin];
+                }
+            }
+        }
+        return dp[n][amount];
+    }
+}
+```
 - 需要注意的点：
 1. **物体个数**是第一个数组元素，
 2. 外层循环也是物体个数
@@ -177,7 +242,7 @@
 
 
 ### 子序列问题 
-** 首先，区分两个概念：子序列可以是不连续的；子数组（子字符串）需要是连续的 **
+**首先，区分两个概念：子序列可以是不连续的；子数组（子字符串）需要是连续的**
 
 
 **例题**：[300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)<br>

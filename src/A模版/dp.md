@@ -281,7 +281,7 @@ return Math.min(a, Math.min(b, c));
    - `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
    - 需要考虑 word1 或 word2 一个字母都没有，预留 `dp[0][j]` 和 `dp[i][0]`
    - 按顺序计算，当计算 dp[i][j] 时，dp[i - 1][j] ， dp[i][j - 1] ， dp[i - 1][j - 1] 均已经确定了，需要取前三个状态中最小的一个，然后+1
-![img.png](src/distance editor.png)
+![img.png](src/distance_editor.png)
 ```java
     public int minDistance(String word1, String word2) {
         int m = word1.length(), n = word2.length();

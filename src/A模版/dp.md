@@ -1,4 +1,4 @@
-### 背包问题
+## 背包问题
 有一个可装重量为`W`的背包和`N`个物体，其中第`i`个物品的重量为`wt[i]`，价值为`val[i]`，现在用这个背包装物品，最多能装的价值是多少？
 
 ```java
@@ -30,7 +30,7 @@
 2. 外层循环也是物体个数
 3. `dp[i][w]` 表示第i个物体，使用w容量的背包，可以装到的最大价值是
 
-### 贪心算法
+## 贪心算法
 [435. 无重叠区间](https://leetcode.cn/problems/non-overlapping-intervals)<br>
 **题目**：输入一个区间的集合，请你计算，要想使其中的区间都互不重叠，至少需要移除几个区间？<br>
 比如说输入是 intervals = [[1,2],[2,3],[3,4],[1,3]]，算法返回 1，因为只要移除 [1,3] 后，剩下的区间就没有重叠了。<br>
@@ -114,12 +114,12 @@
         return steps;
     }
 ```
-### 动态规划
+## 动态规划
 **一维和二维dp区别**：
 * 单个数组或者字符串需要用动归时， `dp[i]` 定义为 `nums[0:i]` 中每个状态的最好结果
 * 当两个数组或者字符串时，`dp[i][j]` 定义为 `A[0:i]` 和 `B[0:j]` 之间匹配结果
 
-**打家劫舍系列**
+### 打家劫舍系列
 **例题**： [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)<br>
 **题目**：每间房内都藏有一定的现金（给定数组），不能偷连续两家，返回偷到到最多金额
 
@@ -138,7 +138,7 @@
         return dp[n];
     }
 ```
-**股票买卖系列**<br>
+### 股票买卖系列
 **例题**：买卖股票的最佳时机<br>
 **当不包含手续费等条件时，可以用*贪心*解决** `待完善`
 ```java
@@ -177,7 +177,7 @@
 
 
 ### 子序列问题 
-### 首先，区分两个概念：子序列可以是不连续的；子数组（子字符串）需要是连续的
+** 首先，区分两个概念：子序列可以是不连续的；子数组（子字符串）需要是连续的 **
 
 
 **例题**：[300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)<br>
@@ -209,10 +209,10 @@
 **题目**：给你输入两个字符串 s1 和 s2，请你找出他们俩的最长公共子序列，返回这个子序列的长度。<br>
 **比如**：s1 = "zabcde", s2 = "acez"，它俩的最长公共子序列是 lcs = "ace"，长度为 3，所以算法返回 3<br>
 [题解参考](https://leetcode.cn/problems/longest-common-subsequence/solution/fu-xue-ming-zhu-er-wei-dong-tai-gui-hua-r5ez6/)
-### 状态定义
+**状态定义**
 `dp[i][j]` 表示 `text1[0:i-1]` 和 `text2[0:j-1]` 的最长公共子序列。<br>
 `dp[i][j]` 可以初始化为 0。当 i = 0 或者 j = 0 的时候，`dp[i][j]`表示的为空字符串和另外一个字符串的匹配
-### 状态转移方程
+**状态转移方程**
 * 当 `text1[i - 1] == text2[j - 1]` 时，说明两个子字符串的最后一位相等，所以最长公共子序列又增加了 1
 * 当 `text1[i - 1] != text2[j - 1]` 时，说明两个子字符串的最后一位不相等，那么此时的状态 dp[i][j] 应该是 dp[i - 1][j] 和 dp[i][j - 1] 的最大值。
 ```java
@@ -234,7 +234,7 @@
     }
 ```
 
-## 距离编辑
+### 距离编辑
 **例题**：[72. 编辑距离](https://leetcode.cn/problems/edit-distance/solution/)
 **题目**：给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数。<br>
 - 你可以对一个单词进行如下三种操作：
@@ -245,7 +245,7 @@
 
 从后向前算
 
-### [常规递归计算](https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/)（超时）
+**【题解】 [常规递归计算](https://labuladong.gitee.io/algo/di-er-zhan-a01c6/zi-xu-lie--6bc09/jing-dian--e5f5e/)（超时）**
 ```java
 int minDistance(String s1, String s2) {
     int m = s1.length(), n = s2.length();
@@ -276,7 +276,7 @@ return Math.min(a, Math.min(b, c));
 }
 ```
 
-### [动归解法](https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/)（标准解法）
+**【题解】 [动归解法](https://leetcode.cn/problems/edit-distance/solution/edit-distance-by-ikaruga/)（标准解法）**
    - 注意是从最后一个字母开始向前比较（字符串匹配都需要从最后一步比较）
    - `dp[i][j]` 代表 word1 中前 i 个字符，变换到 word2 中前 j 个字符，最短需要操作的次数
    - 需要考虑 word1 或 word2 一个字母都没有，预留 `dp[0][j]` 和 `dp[i][0]`

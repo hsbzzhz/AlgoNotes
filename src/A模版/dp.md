@@ -45,7 +45,6 @@ class Solution {
         for (int coin: coins) {
             for (int i = 0; i <= amount; i++) {
                 if (coin <= i) { // 当前数额>=当前硬币数额，就可以进行计算
-                    // 和amount+1（极大值）对比，有可能coin==3，amount为2，所以需要dp[i]来保证这种异常情况
                     // 每个coin都会循环计算dp[i]
                     // dp[i - coin]可能等于amount + 1
                     dp[i] = Math.min(dp[i], dp[i - coin] + 1); 

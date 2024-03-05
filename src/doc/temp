@@ -17,3 +17,6 @@ RocketMQ半消息（2PC）
    1. 需要设计一张Transaction表，和业务表绑定，方便RocketMQ回查
 5. 如果B系统中本地事务执行失败，首先会尝试重试，如遇失败需要通知A系统回滚（这里具体操作）
    1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
+
+
+https://www.yuque.com/wukong-zorrm/qdoy5p/ogaxo2

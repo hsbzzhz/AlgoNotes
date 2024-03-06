@@ -205,8 +205,8 @@ class Solution {
     }
 ```
 ### 2.股票买卖系列
-**例题**：买卖股票的最佳时机<br>
-**当不包含手续费等条件时，可以用*贪心*解决** `待完善`
+
+- 当不包含手续费等条件时，可以用*贪心*解决**
 ```java
     public static int maxProfit_greedy(int[] prices){
         int minPrice = prices[0], profit =0;
@@ -218,27 +218,123 @@ class Solution {
     }
 ```
 
+- 通用的动态规划解法
 **例题**： [714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)<br>
 **题目**：给定一个整数数组 `prices`，其中 `prices[i]`表示第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。<br>
 **思路**：
 1. `dp[i][0]`代表手里无股票 `dp[i][1]`代表买进，手里有股票
 2. 最后结果应是手里股票卖出
-3. 买卖过程只扣取一次fee，这个fee在买进的时候扣
+3. 买卖过程只扣取一次fee，这个fee**在买进的时候扣**
 ```java
+class Solution {
     public int maxProfit(int[] prices, int fee) {
         int n = prices.length;
-        int [][] dp = new int[n][2];
+        int[][] dp = new int[n][2];
 
-        // base case
+        // base case【0代表手上不持有股票，1代表持有股票】
         dp[0][0] = 0; // 开始没买入
         dp[0][1] = -prices[0] - fee; // 开始去买了股票，也扣了fee
 
-        for(int i=1;i<n;i++){
-            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]); 
-            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i] - fee);
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i] - fee);
+        }
+        return dp[n - 1][0];
+    }
+}
+```
+
+**例题**： [309. 买卖股票的最佳时机含冷冻期](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/)<br>
+**题目**：给定一个整数数组 `prices`，其中 `prices[i]`表示第 i 天的股票价格 ,设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）卖出股票后，
+**你无法在第二天买入股票 (即冷冻期为 1 天)**。<br>
+**思路**：
+1. `dp[i][0]`代表手里无股票 `dp[i][1]`代表买进，手里有股票
+2. 最后结果应是手里股票卖出
+3. 加入冷冻期条件后，买入股票的状态，必须是`[i-2]`天不持有股票才能进行买入
+4. 因为动态方程中需要引入`[i-2]`，所以初始条件需要有两天
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices.length == 1) {
+            return 0;
+        }
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+
+        dp[1][0] = Math.max(dp[0][1] + prices[1], dp[0][0]);
+        dp[1][1] = Math.max(dp[0][1], -prices[1]);
+
+
+        for (int i = 2; i < n; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]); 
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 2][0] - prices[i]);
         }
         return dp[n-1][0];
     }
+}
+```
+
+**例题**： [714. 买卖股票的最佳时机含手续费](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)<br>
+**题目**：给定一个整数数组 `prices`，其中 `prices[i]`表示第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。<br>
+**思路**：
+1. `dp[i][0]`代表手里无股票 `dp[i][1]`代表买进，手里有股票
+2. 最后结果应是手里股票卖出
+3. 买卖过程只扣取一次fee，这个fee**在买进的时候扣**
+```java
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+
+        // base case【0代表手上不持有股票，1代表持有股票】
+        dp[0][0] = 0; // 开始没买入
+        dp[0][1] = -prices[0] - fee; // 开始去买了股票，也扣了fee
+
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i] - fee);
+        }
+        return dp[n - 1][0];
+    }
+}
+```
+
+**例题**： `hard`[188. 买卖股票的最佳时机 IV](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/description/)<br>
+**题目**：给定一个整数数组 `prices`，其中 `prices[i]`表示第 i 天的股票价格 ；你最多可以完成 k 笔交易(也就是说，你最多可以买 k 次，卖 k 次)。<br>
+**思路**：
+1. `dp[i][0][k]`代表交际第k次，手里无股票 `dp[i][1][k]`代表买进，交易第k次，手里有股票
+2. 最后结果应是手里股票卖出
+3. 买卖过程只算一次次数，在买进的时候算这个次数 `dp[i-1][0][k-1] - prices[i]`
+```java
+class Solution {
+    public int maxProfit_k_any(int max_k, int[] prices) {
+        if (prices.length == 1) {
+            return 0;
+        }
+        
+        int n = prices.length;
+        max_k = Math.min(max_k, n/2); // 剪枝，所以如果k大于总天数的一半，就直接取天数一半即可，多余的交易次数是无意义的
+
+        int[][][] dp = new int[n][2][max_k + 1];
+        // base case
+        for(int k =0; k <= max_k; k++) {
+            dp[0][0][k]=0;
+            dp[0][1][k]=-prices[0];
+        }
+
+        for(int i=1; i<n; i++){
+            for(int k=1; k<=max_k; k++){ // 嵌套循环，控制交易次数
+                dp[i][0][k]=Math.max(dp[i-1][0][k], dp[i-1][1][k] + prices[i]);
+                dp[i][1][k]=Math.max(dp[i-1][1][k], dp[i-1][0][k-1] - prices[i]);
+            }
+        }
+        
+        return dp[n-1][0][max_k];
+    }
+}
 ```
 
 

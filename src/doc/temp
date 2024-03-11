@@ -19,3 +19,4 @@ RocketMQ半消息（2PC）
    1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
 
 
+https://blog.csdn.net/talenter111/article/details/111867384?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-4-111867384-blog-117655119.235^v43^pc_blog_bottom_relevance_base4&spm=1001.2101.3001.4242.3&utm_relevant_index=5

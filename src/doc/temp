@@ -20,3 +20,31 @@ RocketMQ半消息（2PC）
 
 
 https://blog.csdn.net/talenter111/article/details/111867384?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-4-111867384-blog-117655119.235^v43^pc_blog_bottom_relevance_base4&spm=1001.2101.3001.4242.3&utm_relevant_index=5
+
+
+1. innodb中的事务
+start transaction ... end
+读未提交
+使用MVCC
+读不会加任何锁，而写会加排他锁，并到事务结束之后释放。
+
+读已提交
+使用MVCC
+读不会加锁，事务中每个一致读都会设置并读取自己的新快照。（每次都是新快照）
+加锁读、更新语句、删除语句，mysql仅对where条件中的索引列的记录加锁，不会锁间隙。
+
+可重复读
+使用MVCC
+同一个事务中所有的一致读将取该事务中第一次此类读取锁建立的快照。（取第一次读建立快照）
+
+加锁读、更新语句、删除语句，mysql不仅会对where条件中索引列的记录加锁，还会锁定他们之间的间隙（间隙锁），如果索引是唯一索引会降级为行锁。
+
+序列化
+读会加共享锁，写会加排他锁，读写互斥，悲观锁，并发能力差
+
+2. B+树
+- b+树叶子节点间通过指针相连，形成双向链表，使得在范围查询和排序操作上有性能优势。
+- 叶子节点构成一个有序链表，有利于顺序遍历和检索数据。
+- b+树将所有数据记录存储在叶子节点，使得非叶子节点容量更大，这样可以减少树的高度，进一步优化磁盘I/O效率。
+
+http://hxz.ink/2021/09/11/reactor-pattern/

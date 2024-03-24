@@ -18,22 +18,3 @@ RocketMQ半消息（2PC）
 5. 如果B系统中本地事务执行失败，首先会尝试重试，如遇失败需要通知A系统回滚（这里具体操作）
    1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
 
-
-@RestController 注解
-@Controller
-
-@ResponseBody
-将返回值以指定格式写入http response body中
-
-对象存储在内存中，如果想把内存传输，就需要进行序列化
-因为springboot在提供接口的时候涉及到网络的传输，所以传输的对象需要实现Serializable接口，
-但是@RestController 接口已经帮助转换成json对象，而json对象是已经实现了Serializable接口的，
-所以不需要手动序列化
-
-
-String s0 = "abc"
-至多创建一个对象
-会判断字符串是否在常量池中，然后将s0指向常量池的地址。（在编译阶段就会在内存中创建）
-String s1 = new String("abc");
-至多创建两个对象
-会在堆内存中创建一个String对象，然后指向常量池中的地址，s1指向内存中的对象。（在运行时才会在堆内存中创建）

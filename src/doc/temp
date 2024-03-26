@@ -18,3 +18,24 @@ RocketMQ半消息（2PC）
 5. 如果B系统中本地事务执行失败，首先会尝试重试，如遇失败需要通知A系统回滚（这里具体操作）
    1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
 
+
+
+### 内存泄露exp
+1. 可靠性测试构造异常场景，停止redis和minio实例（停止后2小时），发现微服务服务进程句柄数异常上升，且无法自动释放，可能存在句柄泄露问题
+2. 几个问题
+   1. 什么产生了句柄，对哪些文件产生了句柄
+   2. 为什么句柄没释放
+   3. 为什么是2小时后才开始上涨
+3. 用命令查看微服务进程占用句柄，发现都是jar包-->同时推断，作为java进程，绝大数jar包读取要靠FileInputStream类，
+   同时使用jmap工具下载dump文件，查看FileInputStream对象的GC Roots路径，全部执行java.lang.ref.Finalizer
+   【结论】这些跟具体业务无关，通过堆内存dump查看InputStream对象持有者的想法行不通，所以需要进一步定位
+4. 使用Arthas观察JVM过程，可以输出调用被监听方法时的调用栈，看到时FileURLConnection这个类创建了文件输入流，
+   【还原过程】服务初始化时，会读取classpath下的配置文件，这一步调用了FileURLConnection，产生句柄占用，失败会重试，产生新的句柄占用
+5. 【为什么没被释放】查看JDK源码，InputStream没有显式的关闭，同时看到有open issue的bug
+6. 【为什么JVM垃圾回收没有释放句柄】没有调用finalize，通过查看JVM的gc日志，观察到年轻代整体有100m，s0+s1占了5m【异常】(默认是Eden:s0:s1 = 8:1:1)
+    1. 新对象在Eden区被创建，然后经过yong GC到Survivor区，经过多次回收到old区，但如果Survivor区过小，对象会直接到old区。
+    2. 这种情况下，只要不发生FullGC，这些对象就永远不会被回收，finalize方法也会被调用。（因为句柄很小，占用空间不是很多，所以无法触发Full GC）
+    3. 【证实】通过查看gc日志，看到202次GC后就再没发生过Full GC--->解释了为什么2小时后才开始句柄上升
+7. 【为什么Survivor区会异常的小】
+   JDK8中，默认用ParallelGC，在默认情况下会自动调整堆内存分布
+   【解决办法】缓存G1算法，或者配置ParallelGC中的内存分配参数

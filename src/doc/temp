@@ -32,3 +32,27 @@ RocketMQ半消息（2PC）
 数字签名 - DSA
 它运行用私钥签署消息，以便使用公钥验证签名的有效性，以确保数据的来源和完整性
 
+- jwt
+Header：包含令牌类型(jwt)和前面算法
+Payload：用户信息
+Signature：前面内容，防止被篡改
+为什么用 jwt：session存储需要暂用服务器资源或者维护一个redis组件，而jwt将用户状态分散到了客户端中
+- oauth
+?oath的认证流程
+access_token：通常有效期比较短
+refresh_token：通常具有较长的有效期
+重新生成访问token，分场景：
+1. access_token和refresh_token都未超时
+    a. 刷新access_token过期时间，续期access_token
+    b. 无论过期与否，刷新access_token
+    c. 返回原access_token和refresh_token，不续期，expire_in也保持（spring security 用这个策略）
+2. 若access_token过期了，但refresh_token没过期，需要及时刷新access_token
+3. 若全都过期，需要让用户重新授权
+
+springsecurity的认证流程
+
+负载均衡，一致性哈希算法
+在分布式系统中，每个节点存储的数据是不同的，希望可以将某个请求固定分配到某个节点。
+使用hash算法解决，但面临如下问题：
+1. 如果总节点数发生变化（扩容或缩容），改变了映射关系，会造成较大计算量：首位相连的hash环，固定长度2^32种可能性
+2. 一致性哈希算法不能保证节点在哈希环上均匀分布：添加虚拟节点，比如A-01, A-02其实对应的都是A节点

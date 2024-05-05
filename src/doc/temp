@@ -10,49 +10,5 @@ xa[https://juejin.cn/post/7116916308825866254]
 RocketMQ半消息（2PC）
 [https://mp.weixin.qq.com/s?__biz=MjM5NTY1MjY0MQ==&mid=2650860292&idx=3&sn=21be1aef473c4ceb1f2b00116fd4f671&chksm=bd017e4a8a76f75c89aea1b820f6e76071406c9e3cdd7c61cad99c92d6a59baff1daaf751d38&scene=27]
 [https://blog.csdn.net/weixin_44606481/article/details/129903032]
-1. A系统在执行本地事务前发送一个prepared消息到mq（prepared的topic是不可见的），如果这个prepared消息发送失败久取消后续操作
-2. 如果这个消息发送成功，就继续执行本地事务，如果成功通知mq发送确认信息，如果失败就本地回滚并通知mq删除prepared消息
-3. A系统发送了确认消息后，B系统会通过Topic收到确认消息，然后开始执行本地事务
-4. 期间mq会定时论文所有prepared消息回调服务接口，查询本地事务处理结果。此步骤目的是避免本地事务执行成功，但确认消息缺发送失败
-   1. 需要设计一张Transaction表，和业务表绑定，方便RocketMQ回查
-5. 如果B系统中本地事务执行失败，首先会尝试重试，如遇失败需要通知A系统回滚（这里具体操作）
-   1. RocketMQ不能保障消息重复，所以在消费端需要做幂等处理
 
-
-[java场景加密算法]
-对称加密 - AES
-它使用相同的密钥进行加密和解密，用于网络通信和数据存储
-
-非对称加密 - RSA
-使用一对密钥，公钥用于加密，私钥用于解密。 在数字签名种，用私钥加密，公钥解密
-
-散列函数 - SHA256、MD5
-将输入数据转换为256位的哈希值，是不可逆的。用于验证数据完整，密码存储
-
-数字签名 - DSA
-它运行用私钥签署消息，以便使用公钥验证签名的有效性，以确保数据的来源和完整性
-
-- jwt
-Header：包含令牌类型(jwt)和前面算法
-Payload：用户信息
-Signature：前面内容，防止被篡改
-为什么用 jwt：session存储需要暂用服务器资源或者维护一个redis组件，而jwt将用户状态分散到了客户端中
-- oauth
-?oath的认证流程
-access_token：通常有效期比较短
-refresh_token：通常具有较长的有效期
-重新生成访问token，分场景：
-1. access_token和refresh_token都未超时
-    a. 刷新access_token过期时间，续期access_token
-    b. 无论过期与否，刷新access_token
-    c. 返回原access_token和refresh_token，不续期，expire_in也保持（spring security 用这个策略）
-2. 若access_token过期了，但refresh_token没过期，需要及时刷新access_token
-3. 若全都过期，需要让用户重新授权
-
-springsecurity的认证流程
-
-负载均衡，一致性哈希算法
-在分布式系统中，每个节点存储的数据是不同的，希望可以将某个请求固定分配到某个节点。
-使用hash算法解决，但面临如下问题：
-1. 如果总节点数发生变化（扩容或缩容），改变了映射关系，会造成较大计算量：首位相连的hash环，固定长度2^32种可能性
-2. 一致性哈希算法不能保证节点在哈希环上均匀分布：添加虚拟节点，比如A-01, A-02其实对应的都是A节点
+springsecurity 认证流程

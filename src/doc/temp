@@ -1,0 +1,37 @@
+
+redis数据类型 https://blog.csdn.net/qq_45076180/article/details/109458668
+
+tcc[https://blog.csdn.net/sinat_32873711/article/details/129848895]
+
+xa[https://juejin.cn/post/7116916308825866254]
+
+可靠消息最终一致性方案[https://blog.csdn.net/Pastxu/article/details/115731491?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-115731491-blog-130501345.235^v43^pc_blog_bottom_relevance_base4&spm=1001.2101.3001.4242.2&utm_relevant_index=4]
+
+RocketMQ半消息（2PC）
+[https://mp.weixin.qq.com/s?__biz=MjM5NTY1MjY0MQ==&mid=2650860292&idx=3&sn=21be1aef473c4ceb1f2b00116fd4f671&chksm=bd017e4a8a76f75c89aea1b820f6e76071406c9e3cdd7c61cad99c92d6a59baff1daaf751d38&scene=27]
+[https://blog.csdn.net/weixin_44606481/article/details/129903032]
+
+springsecurity 认证流程
+
+InnoDB实现了以下两种类型的行锁：
+- 共享锁：允许一个事务去读一行，阻止其他事务获得相同的数据集的排他锁
+- 排他锁：允许获得排他锁的事务更新数据，阻止其他事务取得相同的数据集的共享读锁和排他写锁
+
+- 意向共享锁：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的意向共享锁
+- 意向排他锁：事务打算给数据行加行排他锁，必须先取得该表的意向排他锁
+
+InnoDB加锁方法：
+意向锁是InnoDB自动加的，不需用户干预：对于UPDATE、DELETE和INSERT语句，InnoDB会自动给涉及的数据集加排他锁；对于普通的select语句，InnoDB不会加任何锁。
+
+事务操作时，可以通过一下语句显示的给记录集添加锁。
+共享锁：
+select * from table_name where ... lock in share mode;
+其他session仍然可以查询记录，并且可以对该加共享锁，但如果当前事务对该记录进行更新操作，可能会造成死锁
+排他锁：
+select * from table_name where ... for update;
+其他session可以查询到该记录，但不能对该记录加共享锁或排他锁，而且等待获得锁。
+
+InnoDB只有通过索引条件检索数据才使用行级锁，否则使用表锁。
+可以通过InnoDB_row_lock状态变量来分析系统上的行锁争夺情况
+SHOW ENGINE INNODB STATUS命令，在结果中查询DEADLOCK关键字，如果有则存在死锁
+

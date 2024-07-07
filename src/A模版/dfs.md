@@ -260,7 +260,7 @@ class IslandTemplate {
 
 前序遍历：
 ```java
-class BFS {
+class TreeTravel {
     void traverse(TreeNode root) {
         // 判断 base case
         if (root == null) {

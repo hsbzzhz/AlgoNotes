@@ -94,7 +94,7 @@ public class HashMapDemo {
         TreeMap<String, Integer> sortedMap = new TreeMap<String, Integer>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                return 0;
+                return o1.compareTo(o2);
             }
         });
     }

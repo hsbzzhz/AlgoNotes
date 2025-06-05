@@ -17,9 +17,9 @@
    - 当服务器接收到请求，并查看origin头部时，如果设置过允许访问，就**添加到Access-Control-Allow-Origin到响应头中**
    - 浏览器通过返回头部，判断是否可以进行跨域请求
    - 在Springboot中使用cors
-     - 使用CrossOrigin注解，指定允许哪些特定源跨域（例：origins="http://localhost:8080"）
-     - 【一般使用】全局CORS配置，适合应用级别统计CORS配置，具体实现：实现 WebMvcConfigurer接口，重写adsCorsMappings方法
-     - 使用Filter处理CORS，适合需要更底层控制或非Spring Web环境集成
+     - 使用@CrossOrigin注解，指定允许哪些特定源跨域（例：origins="http://localhost:8080"）
+     - 【一般使用】全局CORS配置，适合应用级别统计CORS配置，具体实现：实现 WebMvcConfigurer的adsCorsMappings方法
+     - 使用Filter处理CORS，适合需要更**底层控制**或非Spring Web环境集成
      - Spring Security中的cors，适合已经集成Spring Security的项目，实现 WebSecurityConfigurerAdapter接口
      - 响应头手动设置，适用需要动态控制cors头，在controller中根据请求动态设置cors头
 2. JSONP

@@ -10,7 +10,7 @@ public class 身高体重排序 {
     public static void usingArray() {
 
         int n = hei.length;
-        // 需要建立一个二维数组 {{1, 90, 45}, {2, 110, 90, 35}, {} ...}
+        // 需要建立一个二维数组 {{1, 90, 45}, {2, 110, 50}, {3, 90, 35}, {} ...}
         int[][] source = new int[n][3];
         for (int i = 0; i < n; i++) {
             source[i][0] = i+1;  // index

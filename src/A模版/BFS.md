@@ -1,4 +1,4 @@
-## bfs通用模板
+### bfs通用模板
 
 计算从起点 start 到终点 target 到最近距离
 ```java
@@ -35,19 +35,19 @@ class Template {
 }
 ```
 
-- 二叉树的层序遍历 详见：基础数据结构操作/TreeNode.java<br>
+#### 二叉树的层序遍历 
+详见：基础数据结构操作/TreeNode.java<br>
 **例题**：[199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)<br>
 ![](src/right-view-tree.jpeg)<br>
-**解题思路**： 就是层序遍历，但只取每层的最后一个元素，层序遍历需要增加一个循环来遍历每层的元素
+**解题思路**： 
+就是层序遍历，但只取每层的最后一个元素，层序遍历需要增加一个循环来遍历每层的元素
 ```java
     public List<Integer> rightSideView(TreeNode root) {
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         List<Integer> res = new LinkedList<>();
         // 树为空的情况
-        if (root == null) {
-            return res;
-        }
+        if (root == null) return res;
         while (!queue.isEmpty()) {
             // 记录每层的元素格式，如果需要记录每层结构
             // List<Integer> level = new ArrayList<>();
@@ -58,15 +58,11 @@ class Template {
                 if (i == levelSize - 1) {
                     res.add(cur.val);
                 }
-                if (cur.left != null) {
-                    queue.add(cur.left);
-                }
-                if (cur.right != null) {
-                    queue.add(cur.right);
-                }
+                if (cur.left != null)  queue.add(cur.left);
+                if (cur.right != null)  queue.add(cur.right);
             }
             // 将每一层的结果添加到最终的结果中
-            // result.add(level);
+            result.add(level);
         }
         return res;
     }

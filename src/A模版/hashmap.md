@@ -1,4 +1,47 @@
-## LRU
+### 哈希表辅助模块
+空间换时间
+#### 两数之和
+- 求一个数组中两数之和为target
+- 无序数组、hashmap
+```java
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement)) {
+            return new int[]{map.get(complement), i};
+        }
+        map.put(nums[i], i); // 存储元素→索引
+    }
+    return new int[0];
+}
+```
+
+#### 和为K的子数组
+- 给你一个整数数组nums和一个整数k，统计并返回该数组中和为k的连续子数组的个数
+- 前缀和+hashmap
+- 构建前缀和后，查找preSum - k的出现次数
+- 用preSum存储当前前缀和，优化空间
+
+```java
+public int subarraySum(int[] nums, int k) {
+    Map<Integer, Integer> preSumCount = new HashMap<>();
+    preSumCount.put(0, 1); // 初始化，核心坑点
+    int preSum = 0;
+    int count = 0;
+    for (int num : nums) {
+        preSum += num;
+        // 查找preSum - k的出现次数
+        if (preSumCount.containsKey(preSum - k)) {
+            count += preSumCount.get(preSum - k);
+        }
+        // 更新前缀和出现次数
+        preSumCount.put(preSum, preSumCount.getOrDefault(preSum, 0) + 1);
+    }
+    return count;
+}
+```
+### LRU
 
 [146. LRU 缓存](https://leetcode.cn/problems/lru-cache/)
 

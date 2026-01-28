@@ -1,6 +1,7 @@
 package 基础数据结构操作;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HashMapDemo {
     public static void travelHashMap(){
@@ -19,13 +20,15 @@ public class HashMapDemo {
         for(Map.Entry<Integer, Integer> entry: map.entrySet()){
             System.out.println(entry.getKey()+ " = "+ entry.getValue());
         }
-        // 2*.将map转换为 list
+        // 将map转换为 list
         List<Map.Entry<Integer, Integer>> arrayList = new ArrayList<>(map.entrySet());
 
         // 3.使用 stream api 遍历
         map.entrySet().stream().forEach((entry)->{
             System.out.println(entry.getKey()+" = "+entry.getValue());
         });
+        // 通常更简化为foreach
+        map.forEach((key, val) -> System.out.println(key + "=" + val));
 
         // 这里用stream处理 hashmap，输出array可以用toArray() 方法，如果不注明输出类型，就直接输出Object[]
         // 而且这里输出类型只能是包装类
@@ -38,7 +41,7 @@ public class HashMapDemo {
 
     public static void hashMapSort(){
         /**
-         * 给hashmap排序，先要给它转换为list
+         * 借助list进行排序
          */
         // 初始化一个hashmap
         Map<Integer, int[]> map = new HashMap<>();
@@ -48,7 +51,7 @@ public class HashMapDemo {
         // 1. 先把 map 放进 list 里
         List<Map.Entry<Integer,int[]>> list = new ArrayList<>(map.entrySet());
         // 2. 对list 进行排序
-        Collections.sort(list, new Comparator<Map.Entry<Integer, int[]>>() {
+        list.sort(new Comparator<Map.Entry<Integer, int[]>>() {
             @Override
             public int compare(Map.Entry<Integer, int[]> o1, Map.Entry<Integer, int[]> o2) {
                 return o2.getValue()[1] - o1.getValue()[1]; // 按照 value 中数组的后一位 降序
@@ -61,15 +64,51 @@ public class HashMapDemo {
         }
 
     }
+
+    public static void linkedMapSort(){
+        /*
+        借助linkedmap 和stream进行排序
+         */
+        Map<String, Integer> unsortedMap = new HashMap<>();
+        unsortedMap.put("one", 3);
+        unsortedMap.put("two", 1);
+        unsortedMap.put("three", 2);
+        LinkedHashMap<String, Integer> sortedMap = unsortedMap.entrySet()
+                .stream().sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+    }
+
+    public static void treeMapSort(){
+        /*
+        借助treemap进行排序
+         */
+        Map<String, Integer> map = new HashMap<>();
+        map.put("one", 3);
+        map.put("two", 1);
+        map.put("three", 2);
+        TreeMap<String, Integer> sortedMap = new TreeMap<String, Integer>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+    }
     
     public static void createIfNot() {
-        // 复杂结构的hashmap， 判断map中是否有这个key，如果有，就处理value值，没有就创建一个放到value中
         Map<String, Set<String>> map = new HashMap<>();
         Set<String> set = new HashSet<>(Arrays.asList("t1", "t2"));
         map.put("london", set);
 
+        // 更新和计算
+        // 如果指定key尚未关联value（或映射到null），将其赋值并返回null，否则直接返回当前值。
+        map.putIfAbsent("Thai", new HashSet<>());
+        // 如果指定key尚未关联value，将使用给定映射函数计算值
         map.computeIfAbsent("london", key -> new HashSet<>()).add("t3");
-        map.computeIfAbsent("shanghai", key -> new HashSet<>()).add("t0");
 
         System.out.println(map);
     }

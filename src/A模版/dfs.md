@@ -1,21 +1,37 @@
 # 深度优先
 我们所熟悉的 DFS（深度优先搜索）问题通常是在树或者图结构上进行的
 
-## 1. 回溯问题
+## 1. 二叉树的前序遍历
+```java
+private void dfs(TreeNode node, List<Integer> res) {
+    if (node == null) return; // 递归终止条件
+    res.add(node.val); // 根
+    dfs(node.left, res); // 左
+    dfs(node.right, res); // 右
+}
+```
+
+## 2. 回溯问题
 本质是一个brute force算法，是一个决策树的遍历过程
 
-```python
-result = []
-def backtrack(start, 路径, 选择列表):
-    if 满足结束条件:   ## step1.
-        result.add(路径)
-        return
-    
-    for i in 选择列表:  ## step2.
-        做选择
-        backtrack(i + 1, 路径, 选择列表)  ## step3.
-        撤销选择
+```java
+public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+    dfs(nums, 0, path, res);
+    return res;
+}
+
+private void dfs(int[] nums, int index, List<Integer> path, List<List<Integer>> res) {
+    res.add(new ArrayList<>(path)); // 条件满足，收集结果
+    for (int i = index; i < nums.length; i++) {
+        path.add(nums[i]); // 选择
+        dfs(nums, i + 1, path, res); // 递归
+        path.remove(path.size() - 1); // 回溯，撤销选择
+    }
+}
 ```
+
 **列题0**：[全排列](https://leetcode.cn/problems/permutations/)<br>
 **输入**：nums = [1,2,3]<br>
 **输出**: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]

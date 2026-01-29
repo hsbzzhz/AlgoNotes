@@ -22,6 +22,7 @@ public int[] twoSum(int[] nums, int target) {
 - 前缀和+hashmap
 - 构建前缀和后，查找preSum - k的出现次数
 - 用preSum存储当前前缀和，优化空间
+- map中存储<前缀和，出现次数>
 
 ```java
 public int subarraySum(int[] nums, int k) {

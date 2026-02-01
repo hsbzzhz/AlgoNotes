@@ -206,7 +206,8 @@ public int climbStairs(int n) {
 #### 1.打家劫舍系列
 **例题**： [198. 打家劫舍](https://leetcode.cn/problems/house-robber/)<br>
 **题目**：每间房内都藏有一定的现金（给定数组），不能偷连续两家，返回偷到到最多金额
-- dp为前n间屋子能偷到的最大金额
+- nums[j] = 第j+1间房屋的金额（j从0开始）
+- dp[i] = 考虑前 i 间房屋能偷的最大金额（i从0开始）
 - dp[0] = 0为初始化，dp[1] = nums[0]为偷第一家
 
 ![img.png](src/robber.png)
